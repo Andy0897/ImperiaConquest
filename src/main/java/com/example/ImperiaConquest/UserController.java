@@ -14,8 +14,9 @@ public class UserController {
     private UserRepository userRepository;
     private UserService userService;
 
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/register")
@@ -27,6 +28,6 @@ public class UserController {
 
     @PostMapping("/submit-user")
     public String submitUser(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult, Model model) {
-        return
+        return userService.submitUser(userDTO, bindingResult, model);
     }
 }
