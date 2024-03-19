@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In</title>
+</head>
+<body>
+<form th:action="@{/sign-in}" method="post">
+    <h1>Sign In</h1>
+    <div th:if="${param.error}">
+        Invalid username or password.
+    </div>
+    <div th:if="${param.logout}">
+        You have been logged out.
+    </div>
+    <div>
+        <input type="text" name="usernameOrEmail" placeholder="Username or Email"/>
+    </div>
+    <div>
+        <input type="password" name="password" placeholder="Enter your Password"/>
+    </div>
+    <div>
+        <input type="submit" value="Sign In" class="btn btn-primary form-control" />
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+</head>
+<body>
+<form th:action="@{/submit-user}" method="post" th:object="${user}">
+    <h1>Sign Up</h1>
+    <div>
+        <input type="text" th:field="*{username}" placeholder="Enter your Username">
+        <div>
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"><br></span>
+            <span th:text="${busyError}">This username is already taken<br></span>
+            <span th:text="${symbolsError}"><br></span>
+        </div>
+    </div>
+    <div>
+        <input type="email" th:field="*{email}" placeholder="Enter your Email">
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+    </div>
+    <div>
+        <input type="password" th:field="*{password}" placeholder="Enter your Password">
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+    </div>
+    <div>
+        <input type="password" th:field="*{repeatPassword}" placeholder="Repeat your Password">
+        <span th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}"></span>
+    </div>
+    <a th:href="@{/sign-in}">Already have account?</a>
+    <div>
+        <input type="submit" value="sign up">
+    </div>
+</form>
+</body>
+</html>
