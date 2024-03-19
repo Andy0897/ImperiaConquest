@@ -28,12 +28,7 @@ public class WebSecurityConfig {
                         .usernameParameter("usernameOrEmail")
                         .permitAll()
                 )
-                .logout((logout) -> logout.permitAll())
-                .exceptionHandling(exceptionHandling -> exceptionHandling
-                        .accessDeniedHandler((request, response, accessDeniedException) -> {
-                            response.sendRedirect("/access-denied");
-                        })
-                );
+                .logout((logout) -> logout.permitAll());
 
         return http.build();
     }
