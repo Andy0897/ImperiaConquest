@@ -19,15 +19,25 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/register")
-    public String getRegister(Model model) {
+    @GetMapping({"/", "/home"})
+    public String getHome() {
+        return "home";
+    }
+
+    @GetMapping("/sign-up")
+    public String getSignUp(Model model) {
         UserDTO userDTO = new UserDTO();
         model.addAttribute("user", userDTO);
-        return "register";
+        return "sign-up";
     }
 
     @PostMapping("/submit-user")
     public String submitUser(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult, Model model) {
         return userService.submitUser(userDTO, bindingResult, model);
+    }
+
+    @GetMapping("/sign-in")
+    public String getSignIn() {
+        return "sign-in";
     }
 }

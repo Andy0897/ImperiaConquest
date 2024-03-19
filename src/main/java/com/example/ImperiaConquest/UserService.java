@@ -1,6 +1,5 @@
 package com.example.ImperiaConquest;
 
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,20 +7,24 @@ import org.springframework.validation.BindingResult;
 @Service
 public class UserService {
     private UserRepository userRepository;
-    private UserMapping userMapping;
+    private UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, UserMapping userMapping) {
+    public UserService(UserRepository userRepository, UserMapper userMapping) {
         this.userRepository = userRepository;
-        this.userMapping = userMapping;
+        this.userMapper = userMapping;
     }
 
     public String submitUser(UserDTO userDTO, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors()) {
+        if(bindingResult.hasErrors() && comparePasswords(userDTO.getPassword(), userDTO.getRepeatPassword())) {
             model.addAttribute("user", userDTO);
-            return "register";
+            return "sign-up";
         }
-        User user = userMapping.toEntity(userDTO);
+        User user = userMapper.toEntity(userDTO);
         userRepository.save(user);
-        return "redirect:/login";
+        return "redirect:/sign-in";
+    }
+
+    public boolean comparePasswords(String password, String repeatPassword) {
+        return password.equals(repeatPassword);
     }
 }

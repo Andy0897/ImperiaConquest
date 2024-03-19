@@ -3,7 +3,6 @@ package com.example.ImperiaConquest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Entity
 @Table(name = "users")

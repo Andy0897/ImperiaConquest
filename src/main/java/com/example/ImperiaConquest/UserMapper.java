@@ -1,6 +1,9 @@
 package com.example.ImperiaConquest;
 
-public class UserMapping {
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserMapper {
     public User toEntity(UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
