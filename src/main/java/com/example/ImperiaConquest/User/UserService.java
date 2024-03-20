@@ -1,4 +1,4 @@
-package com.example.ImperiaConquest;
+package com.example.ImperiaConquest.User;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ public class UserService {
     }
 
     public String submitUser(UserDTO userDTO, BindingResult bindingResult, Model model) {
-        if(bindingResult.hasErrors() || comparePasswords(userDTO.getPassword(), userDTO.getRepeatPassword())) {
+        if(bindingResult.hasErrors() || !comparePasswords(userDTO.getPassword(), userDTO.getRepeatPassword())) {
             model.addAttribute("user", userDTO);
             return "sign-up";
         }

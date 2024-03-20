@@ -1,4 +1,4 @@
-package com.example.ImperiaConquest;
+package com.example.ImperiaConquest.User;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,10 +1,16 @@
-package com.example.ImperiaConquest;
+package com.example.ImperiaConquest.User;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-public class UserDTO {
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)//could be changed
+    private Long id;
+
     @NotEmpty(message = "This field can't be empty")
     @Size(min = 6, message = "Size must be bigger than 6")
     @Size(max = 14, message = "Size must be smaller than 14")
@@ -16,19 +22,21 @@ public class UserDTO {
 
     @NotEmpty(message = "This field can't be empty")
     @Size(min = 8, message = "Size must be bigger than 8")
-    @Size(max = 16, message = "Size must be smaller than 16")
+    @Size(max = 10000, message = "Size must be smaller than 16") //fix this
     private String password;
 
-    @NotEmpty(message = "This field can't be empty")
-    @Size(min = 8, message = "Size must be bigger than 8")
-    @Size(max = 16, message = "Size must be smaller than 16")
-    private String repeatPassword;
-
-    @Column(columnDefinition = "VARCHAR DEFAULT 'USER'")
+    @Column(columnDefinition = "VARCHAR(20) DEFAULT 'USER'")
     private String role;
-
-    @Column(columnDefinition = "boolean DEFAULT '1'")
+    @Column(columnDefinition = "BIT DEFAULT 1")
     private boolean enable;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -52,14 +60,6 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
-
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
     }
 
     public String getRole() {

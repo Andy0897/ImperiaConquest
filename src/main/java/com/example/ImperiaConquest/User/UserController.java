@@ -1,7 +1,6 @@
-package com.example.ImperiaConquest;
+package com.example.ImperiaConquest.User;
 
 import jakarta.validation.Valid;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

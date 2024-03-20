@@ -1,4 +1,4 @@
-package com.example.ImperiaConquest;
+package com.example.ImperiaConquest.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

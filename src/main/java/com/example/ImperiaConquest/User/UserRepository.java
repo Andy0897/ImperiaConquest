@@ -1,6 +1,5 @@
-package com.example.ImperiaConquest;
+package com.example.ImperiaConquest.User;
 
-import org.springframework.data.jpa.repository.support.CrudMethodMetadata;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 

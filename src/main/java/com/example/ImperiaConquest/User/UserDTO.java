@@ -1,16 +1,10 @@
-package com.example.ImperiaConquest;
+package com.example.ImperiaConquest.User;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+public class UserDTO {
     @NotEmpty(message = "This field can't be empty")
     @Size(min = 6, message = "Size must be bigger than 6")
     @Size(max = 14, message = "Size must be smaller than 14")
@@ -22,22 +16,15 @@ public class User {
 
     @NotEmpty(message = "This field can't be empty")
     @Size(min = 8, message = "Size must be bigger than 8")
-    @Size(max = 16, message = "Size must be smaller than 16")
+    @Size(max = 10000, message = "Size must be smaller than 16") //fix this
     private String password;
 
-    @Column(columnDefinition = "VARCHAR DEFAULT 'USER'")
-    private String role;
+    @NotEmpty(message = "This field can't be empty")
+    @Size(min = 8, message = "Size must be bigger than 8")
+    @Size(max = 10000, message = "Size must be smaller than 16") //fix this
+    private String repeatPassword;
 
-    @Column(columnDefinition = "boolean DEFAULT '1'")
-    private boolean enable;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -63,19 +50,13 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public String getRepeatPassword() {
+        return repeatPassword;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
     }
 
-    public boolean isEnable() {
-        return enable;
-    }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
 }
