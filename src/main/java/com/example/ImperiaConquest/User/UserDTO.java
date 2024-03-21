@@ -16,7 +16,7 @@ public class UserDTO {
 
     @NotEmpty(message = "This field can't be empty")
     @Size(min = 8, message = "Size must be bigger than 8")
-    @Size(max = 10000, message = "Size must be smaller than 16") //fix this
+    @Size(max = 16, message = "Size must be smaller than 16")
     private String password;
 
     @NotEmpty(message = "This field can't be empty")

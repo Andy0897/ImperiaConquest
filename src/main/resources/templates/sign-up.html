@@ -9,23 +9,22 @@
     <h1>Sign Up</h1>
     <div>
         <input type="text" th:field="*{username}" placeholder="Enter your Username">
-        <div>
-            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"><br></span>
-            <span th:text="${busyError}">This username is already taken<br></span>
-            <span th:text="${symbolsError}"><br></span>
-        </div>
+        <div><span style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span></div>
+        <div><span style="color: red" th:if="${existsUserByUsername}" th:text="|This username is taken|"></span></div>
     </div>
     <div>
         <input type="email" th:field="*{email}" placeholder="Enter your Email">
-        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <div><span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></div>
+        <div><span style="color: red" th:if="${existsUserByEmail}" th:text="|Already exists account with this email|"></span></div>
     </div>
     <div>
         <input type="password" th:field="*{password}" placeholder="Enter your Password">
-        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        <div><span style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></div>
     </div>
     <div>
         <input type="password" th:field="*{repeatPassword}" placeholder="Repeat your Password">
-        <span th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}"></span>
+        <div><span style="color: red" th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}"></span></div>
+        <div><span style="color: red" th:if="${comparePasswords}" th:text="|Passwords don't match|"></span></div>
     </div>
     <a th:href="@{/sign-in}">Already have account?</a>
     <div>
