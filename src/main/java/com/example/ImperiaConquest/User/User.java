@@ -1,5 +1,6 @@
 package com.example.ImperiaConquest.User;
 
+import com.example.ImperiaConquest.Empire.Empire;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -7,6 +8,7 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "users")
 public class User {
+    @Column(name = "user_id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)//could be changed
     private Long id;
@@ -29,6 +31,10 @@ public class User {
     private String role;
     @Column(columnDefinition = "BIT DEFAULT 1")
     private boolean enable;
+
+    @OneToOne
+    @JoinColumn(name = "empire_id")
+    private Empire empire;
 
     public long getId() {
         return id;
