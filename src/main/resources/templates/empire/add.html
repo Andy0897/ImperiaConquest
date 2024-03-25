@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Your Empire</title>
+</head>
+<body>
+<form th:action="@{/empire/save}" method="post" th:object="${empire}">
+    <div class="div">
+        Name: <input type="text" th:field="*{name}"/>
+    </div>
+
+     <div>
+        <input type ="submit" value = "Save Empire">
+    </div>
+</form>
+</body>
+</html>

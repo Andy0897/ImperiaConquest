@@ -32,8 +32,7 @@ public class User {
     @Column(columnDefinition = "BIT DEFAULT 1")
     private boolean enable;
 
-    @OneToOne
-    @JoinColumn(name = "empire_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
     private Empire empire;
 
     public long getId() {
@@ -82,5 +81,17 @@ public class User {
 
     public void setEnable(boolean enable) {
         this.enable = enable;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Empire getEmpire() {
+        return empire;
+    }
+
+    public void setEmpire(Empire empire) {
+        this.empire = empire;
     }
 }

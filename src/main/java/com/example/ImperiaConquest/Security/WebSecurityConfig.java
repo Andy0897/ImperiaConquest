@@ -25,13 +25,14 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/submit-user").permitAll()
+                        .requestMatchers("/", "/home", "/submit-user","/sign-up").permitAll()
                         .requestMatchers("/sign-in", "/sign-up").anonymous()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/sign-in")
                         .usernameParameter("usernameOrEmail")
+                        .passwordParameter("password")//try this
                         .defaultSuccessUrl("/home")
                         .permitAll()
                 )
