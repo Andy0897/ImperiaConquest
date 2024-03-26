@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign In</title>
-</head>
+<head th:replace="partials/head"></head>
 <body>
-<form th:action="@{/sign-in}" method="post">
-    <h1>Sign In</h1>
+    <h1 class="page-title">Sign In</h1>
+<form class="form-sign-in" th:action="@{/sign-in}" method="post">
     <div th:if="${param.error}">
         Invalid username or password.
     </div>

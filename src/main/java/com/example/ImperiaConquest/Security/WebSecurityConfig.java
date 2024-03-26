@@ -24,8 +24,10 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/home", "/submit-user","/sign-up").permitAll()
+                        .requestMatchers("/styles/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/sign-in", "/sign-up").anonymous()
                         //.requestMatchers("/empire/add").hasAuthority("USER")
                         .anyRequest().authenticated()
