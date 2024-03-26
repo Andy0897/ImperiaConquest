@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Empire</title>
-</head>
+<head th:replace="partials/head"></head>
 <body>
-<h1 th:text="${empire.name}"></h1>
+    <h1 th:text="${empire.name}"></h1>
+<div class="container">
+        <h2>Resources</h2>
+    <div class="resources">
+        <div class="resource">
+            <span>
+                <img th:src="@{/images/gold.svg}" width="30" alt=""/>
+            </span>
+            <span th:text="${empire.gold}"></span>
+        </div>
+        <div class="resource">
+            <span>
+                <img th:src="@{/images/wood.svg}" width="30" alt=""/>
+            </span>
+            <span th:text="${empire.wood}"></span>
+        </div>
+
+        <div class="resource">
+            <span>
+                <img th:src="@{/images/iron.svg}" width="30" alt=""/>
+            </span>
+            <span th:text="${empire.iron}"></span>
+        </div>
+    </div>
+</div>
 </body>
 </html>

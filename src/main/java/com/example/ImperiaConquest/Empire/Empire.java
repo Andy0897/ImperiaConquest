@@ -3,6 +3,8 @@ package com.example.ImperiaConquest.Empire;
 import com.example.ImperiaConquest.User.User;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "empires")
 public class Empire {
@@ -17,6 +19,12 @@ public class Empire {
 
     private String name;
 
+    @Column(name = "gold")
+    private int gold;
+    @Column(name = "wood")
+    private int wood;
+    @Column(name = "iron")
+    private int iron;
 
     public Long getId() {
         return id;
@@ -40,5 +48,29 @@ public class Empire {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
+    public int getWood() {
+        return wood;
+    }
+
+    public void setWood(int wood) {
+        this.wood = wood;
+    }
+
+    public int getIron() {
+        return iron;
+    }
+
+    public void setIron(int iron) {
+        this.iron = iron;
     }
 }

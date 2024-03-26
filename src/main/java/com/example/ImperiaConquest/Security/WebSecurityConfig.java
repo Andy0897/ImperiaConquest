@@ -27,6 +27,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/home", "/submit-user","/sign-up").permitAll()
                         .requestMatchers("/sign-in", "/sign-up").anonymous()
+                        //.requestMatchers("/empire/add").hasAuthority("USER")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
