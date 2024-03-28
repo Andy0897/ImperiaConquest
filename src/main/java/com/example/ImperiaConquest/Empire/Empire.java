@@ -1,5 +1,6 @@
 package com.example.ImperiaConquest.Empire;
 
+import com.example.ImperiaConquest.BattleLog.BattleLog;
 import com.example.ImperiaConquest.ResourceBuilding.ResourceBuilding;
 import com.example.ImperiaConquest.User.User;
 import jakarta.persistence.*;
