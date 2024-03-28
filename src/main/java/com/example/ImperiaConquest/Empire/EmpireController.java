@@ -45,8 +45,8 @@ public class EmpireController {
 
     @GetMapping("/show")
     public String showEmpire(Model model, Principal principal){
-        Empire empire1 = empireService.getEmpireByUsername(principal.getName());
-        model.addAttribute("empire", empire1);
+        Empire empire = empireService.getEmpireByUsername(principal.getName());
+        model.addAttribute("empire", empire);
         return "empire/show";
     }
 

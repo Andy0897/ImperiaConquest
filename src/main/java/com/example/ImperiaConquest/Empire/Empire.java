@@ -1,7 +1,7 @@
 package com.example.ImperiaConquest.Empire;
 
 import com.example.ImperiaConquest.BattleLog.BattleLog;
-import com.example.ImperiaConquest.ResourceBuilding.ResourceBuilding;
+import com.example.ImperiaConquest.Mine.Mine;
 import com.example.ImperiaConquest.User.User;
 import jakarta.persistence.*;
 
@@ -19,13 +19,17 @@ public class Empire {
     private User user;
     private String name;
     @OneToMany(mappedBy = "empire")
-    private List<ResourceBuilding> resourceBuildings;
+    private List<Mine> mines;
     @Column(name = "gold")
     private int gold;
     @Column(name = "wood")
     private int wood;
     @Column(name = "iron")
     private int iron;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "winner")
+    private List<BattleLog> wins;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "winner")
+    private List<BattleLog> losses;
 
     public Long getId() {
         return id;
@@ -74,11 +78,14 @@ public class Empire {
     public void setIron(int iron) {
         this.iron = iron;
     }
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "winner")
-    private List<BattleLog> wins;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "winner")
-    private List<BattleLog> losses;
+    public List<Mine> getMines() {
+        return mines;
+    }
+
+    public void setMines(List<Mine> mines) {
+        this.mines = mines;
+    }
 
     public List<BattleLog> getWins() {
         return wins;
@@ -88,7 +95,15 @@ public class Empire {
         this.wins = wins;
     }
 
-    public void addResourceBuilding(ResourceBuilding resourceBuilding) {
-        resourceBuildings.add(resourceBuilding);
+    public List<BattleLog> getLosses() {
+        return losses;
+    }
+
+    public void setLosses(List<BattleLog> losses) {
+        this.losses = losses;
+    }
+
+    public void addMine(Mine mine) {
+        mines.add(mine);
     }
 }
