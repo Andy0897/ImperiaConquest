@@ -1,6 +1,6 @@
 package com.example.ImperiaConquest.Empire;
 
-import com.example.ImperiaConquest.BattleLog.BattleLog;
+import com.example.ImperiaConquest.ResourceBuilding.ResourceBuilding;
 import com.example.ImperiaConquest.User.User;
 import jakarta.persistence.*;
 
@@ -13,13 +13,12 @@ public class Empire {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     private String name;
-
+    @OneToMany(mappedBy = "empire")
+    private List<ResourceBuilding> resourceBuildings;
     @Column(name = "gold")
     private int gold;
     @Column(name = "wood")
@@ -86,5 +85,9 @@ public class Empire {
 
     public void setWins(List<BattleLog> wins) {
         this.wins = wins;
+    }
+
+    public void addResourceBuilding(ResourceBuilding resourceBuilding) {
+        resourceBuildings.add(resourceBuilding);
     }
 }
