@@ -17,7 +17,6 @@ public class Mine {
     @Column(name = "last_mining")
     private LocalDateTime lastMining;
     @ManyToOne
-    @JoinColumn(name = "empire_id")
     private Empire empire;
 
     public Long getId() {

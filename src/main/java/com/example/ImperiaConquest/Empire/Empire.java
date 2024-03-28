@@ -18,7 +18,7 @@ public class Empire {
     @JoinColumn(name = "user_id")
     private User user;
     private String name;
-    @OneToMany(mappedBy = "empire")
+    @OneToMany
     private List<Mine> mines;
     @Column(name = "gold")
     private int gold;

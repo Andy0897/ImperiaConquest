@@ -26,6 +26,18 @@
             <span th:text="${empire.iron}"></span>
         </div>
     </div>
+    <h1>Buildings</h1>
+    <form th:action="@{/empire/buy-mine}" method="post" th:object="${mineBuy}">
+        <span th:if="${canBuyMine == false}">You don't have enough resources to buy a new mine</span>
+        <input type="submit" value="Buy Mine">
+    </form>
+    <div th:if="${#lists.isEmpty(empire.mines)}">
+        <p>You still don't have any buildings</p>
+    </div>
+    <div th:each="mine : ${empire.mines}">
+        <p>Mine</p>
+        <p th:text="${mine.miningCapacity}"></p>
+    </div>
 </div>
 </body>
 </html>

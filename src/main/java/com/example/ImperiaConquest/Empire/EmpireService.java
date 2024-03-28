@@ -3,13 +3,13 @@ package com.example.ImperiaConquest.Empire;
 import com.example.ImperiaConquest.Mine.Mine;
 import com.example.ImperiaConquest.Mine.MineRepository;
 import com.example.ImperiaConquest.Mine.MineService;
-import com.example.ImperiaConquest.ResourceBuilding.ResourceBuilding;
 import com.example.ImperiaConquest.User.MyUserDetails;
 import com.example.ImperiaConquest.User.User;
 import com.example.ImperiaConquest.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -70,11 +70,14 @@ public class EmpireService {
         updateEmpire(empire);
     }
 
-    public String submitBuyMine(Empire empire, Mine mine, String resource) {
+    public String submitBuyMine(Empire empire, Mine mine, String resource, Model model) {
         if(checkIfCanBuyMine(empire, resource)){
             buyMine(mine, empire, resource);
             return "redirect:/empire/show";
         }
+        model.addAttribute("empire", empire);
+        model.addAttribute("canBuyMine", false);
+        return "redirect:/empire/show";
     }
 
     private boolean checkIfCanBuyMine(Empire empire, String resource) {
