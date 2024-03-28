@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/empire")
@@ -23,6 +25,8 @@ public class EmpireController {
     UserRepository userRepository;
     @Autowired
     EmpireService empireService;
+    @Autowired
+    EmpireRepository empireRepository;
 
     @GetMapping("/add")
     public String addEmpire(Model model, Principal principal) {
@@ -45,4 +49,5 @@ public class EmpireController {
         model.addAttribute("empire", empire1);
         return "empire/show";
     }
+
 }

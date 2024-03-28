@@ -40,4 +40,7 @@ public class EmpireService {
         User user = userRepository.getUserByUsername(username);
         return empireRepository.getEmpireByUserId(user.getId());
     }
+    public Long getEmpireWins(Empire empire){
+        return (long) empire.getWins().size();
+    }
 }

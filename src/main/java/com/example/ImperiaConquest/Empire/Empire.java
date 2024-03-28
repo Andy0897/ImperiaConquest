@@ -1,5 +1,6 @@
 package com.example.ImperiaConquest.Empire;
 
+import com.example.ImperiaConquest.BattleLog.BattleLog;
 import com.example.ImperiaConquest.User.User;
 import jakarta.persistence.*;
 
@@ -72,5 +73,18 @@ public class Empire {
 
     public void setIron(int iron) {
         this.iron = iron;
+    }
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "winner")
+    private List<BattleLog> wins;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "winner")
+    private List<BattleLog> losses;
+
+    public List<BattleLog> getWins() {
+        return wins;
+    }
+
+    public void setWins(List<BattleLog> wins) {
+        this.wins = wins;
     }
 }
