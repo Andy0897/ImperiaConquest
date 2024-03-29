@@ -10,10 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -52,16 +49,17 @@ public class EmpireController {
     @GetMapping("/show")
     public String showEmpire(Model model, Principal principal) {
         Empire empire = empireService.getEmpireByUsername(principal.getName());
+        String resource = "";
         model.addAttribute("empire", empire);
         model.addAttribute("mineBuy", new Mine());
         return "empire/show";
     }
 
-    @PostMapping("/buy-mine")
-    public String submitBuyMine(Mine mine, Model model, Principal principal) {
+    @PostMapping("/buy-mine/{resource}")
+    public String submitBuyMine(@PathVariable("resource") String resource, Mine mine, Model model, Principal principal) {
         mine = mineService.setUpMine(mine);
         User user = userRepository.getUserByUsername(principal.getName());
         Empire empire = empireRepository.getEmpireByUserId(user.getId());
-        return empireService.submitBuyMine(empire, mine, "gold", model);
+        return empireService.submitBuyMine(empire, mine, resource, model);
     }
 }

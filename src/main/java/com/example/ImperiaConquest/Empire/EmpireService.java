@@ -77,7 +77,7 @@ public class EmpireService {
         }
         model.addAttribute("empire", empire);
         model.addAttribute("canBuyMine", false);
-        return "redirect:/empire/show";
+        return "empire/show";
     }
 
     private boolean checkIfCanBuyMine(Empire empire, String resource) {

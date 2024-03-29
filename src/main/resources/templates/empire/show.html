@@ -27,9 +27,18 @@
         </div>
     </div>
     <h1>Buildings</h1>
-    <form th:action="@{/empire/buy-mine}" method="post" th:object="${mineBuy}">
-        <span th:if="${canBuyMine == false}">You don't have enough resources to buy a new mine</span>
-        <input type="submit" value="Buy Mine">
+    <h2>Buy Mine</h2>
+    <form th:action="@{/empire/buy-mine/gold}" method="post" th:object="${mineBuy}">
+        <div><span th:if="${canBuyMine == false}" th:text="|You don't have enough gold to buy a new mine|"></span></div>
+        <button type="submit" name="resource" >100 <span><img th:src="@{/images/gold.svg}" width="30" alt=""/></span></button>
+    </form>
+    <form th:action="@{/empire/buy-mine/iron}" method="post" th:object="${mineBuy}">
+        <div><span th:if="${canBuyMine == false}" th:text="|You don't have enough iron to buy a new mine|"></span></div>
+        <button type="submit" name="resource" >200 <span><img th:src="@{/images/iron.svg}" width="30" alt=""/></span></button>
+    </form>
+    <form th:action="@{/empire/buy-mine/wood}" method="post" th:object="${mineBuy}">
+        <div><span th:if="${canBuyMine == false}" th:text="|You don't have enough wood to buy a new mine|"></span></div>
+        <button type="submit" name="resource" >400 <span><img th:src="@{/images/wood.svg}" width="30" alt=""/></span></button>
     </form>
     <div th:if="${#lists.isEmpty(empire.mines)}">
         <p>You still don't have any buildings</p>
