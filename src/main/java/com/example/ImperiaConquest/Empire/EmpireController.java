@@ -6,6 +6,7 @@ import com.example.ImperiaConquest.Mine.MineService;
 import com.example.ImperiaConquest.User.MyUserDetails;
 import com.example.ImperiaConquest.User.User;
 import com.example.ImperiaConquest.User.UserRepository;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -68,9 +69,10 @@ public class EmpireController {
     }
 
     @PostMapping("/submit-mining/{resource}")
-    public String submitMining(@ModelAttribute Mine mine, @PathVariable("resource") String resource, Model model, Principal principal) {
+    public String submitMining(@RequestParam Long mineId, @PathVariable("resource") String resource, Model model, Principal principal) {
         User user = userRepository.getUserByUsername(principal.getName());
         Empire empire = empireRepository.getEmpireByUserId(user.getId());
+        Mine mine = mineRepository.getMineById(mineId);
         return mineService.submitMining(empire, mine, resource, model);
     }
 }

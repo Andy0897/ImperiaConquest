@@ -48,22 +48,22 @@
         <div>
             <img th:src="@{/images/gold.svg}" width="30" alt=""/>
             <span th:text="|${mine.goldMiningCapacity} per hour|"/>
-            <form th:action="@{/empire/submit-mining/gold}" method="post" th:object="${mine}">
-                <input type="submit" value="Mine">
+            <form th:action="@{/empire/submit-mining/gold?(mineId=${mine.id})}" method="post" class="inline">
+                <input type="submit" value="Mine" class="btn">
             </form>
         </div>
         <div>
             <img th:src="@{/images/iron.svg}" width="30" alt=""/>
             <span th:text="|${mine.ironMiningCapacity} per hour|"/>
-            <form th:action="@{/empire/submit-mining/iron}" method="post" th:object="${mine}">
-                <input type="submit" value="Mine">
+            <form th:action="@{/empire/submit-mining/iron?(mineId=${mine.id})}" method="post" class="inline">
+                <input type="submit" value="Mine" class="btn">
             </form>
         </div>
         <div>
             <img th:src="@{/images/wood.svg}" width="30" alt=""/>
             <span th:text="|${mine.woodMiningCapacity} per hour|"/>
-            <form th:action="@{/empire/submit-mining/wood}" method="post" th:object="${mine}">
-                <input type="submit" value="Mine">
+            <form th:action="@{/empire/submit-mining/wood?(mineId=${mine.id})}" method="post" class="inline">
+                <input type="submit" value="Mine" class="btn">
             </form>
         </div>
     </div>

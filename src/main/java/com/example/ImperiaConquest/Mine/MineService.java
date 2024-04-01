@@ -12,10 +12,12 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class MineService {
     EmpireService empireService;
+    MineRepository mineRepository;
 
     @Lazy
-    public MineService(EmpireService empireService) {
+    public MineService(EmpireService empireService, MineRepository mineRepository) {
         this.empireService = empireService;
+        this.mineRepository = mineRepository;
     }
 
     public Mine setUpMine(Mine mine) {
@@ -29,16 +31,20 @@ public class MineService {
         if(!checkIfCanMine(mine)) {
             model.addAttribute("canMine", false);
             model.addAttribute("empire", empire);
-            model.addAttribute("mineBuy", new Mine());
+            mine = new Mine();
+            model.addAttribute("mineBuy", mine);
             return "empire/show";
         }
+        System.out.println(mine.getId());
         mining(empire, mine, resource);
         return "redirect:/empire/show";
     }
 
     private void mining(Empire empire, Mine mine, String resource) {
         if(resource.equals("gold")) {
+            System.out.println(empire.getGold());
             empire.setGold(empire.getGold() + mine.getGoldMiningCapacity());
+            System.out.println(empire.getGold());
         }
         else if(resource.equals("iron")) {
             empire.setIron(empire.getIron() + mine.getIronMiningCapacity());
@@ -46,15 +52,24 @@ public class MineService {
         else {
             empire.setWood(empire.getWood() + mine.getWoodMiningCapacity());
         }
+        mine.setLastMining(LocalDateTime.now());
         empireService.updateEmpire(empire);
+        updateMine(mine);
     }
 
     private boolean checkIfCanMine(Mine mine) {
-        return calculateHoursDifference(mine.getLastMining()) >= 1;
+        if(mine.getLastMining() != null) {
+            return calculateHoursDifference(mine.getLastMining()) >= 1;
+        }
+        return true;
     }
 
     private static long calculateHoursDifference(LocalDateTime time) {
         long hoursDifference = ChronoUnit.HOURS.between(time, LocalDateTime.now());
         return Math.abs(hoursDifference);
+    }
+
+    public void updateMine(Mine mine) {
+        mineRepository.save(mine);
     }
 }
