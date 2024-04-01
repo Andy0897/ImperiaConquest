@@ -1,6 +1,7 @@
 package com.example.ImperiaConquest.Empire;
 
 import com.example.ImperiaConquest.Mine.Mine;
+import com.example.ImperiaConquest.Mine.MineRepository;
 import com.example.ImperiaConquest.Mine.MineService;
 import com.example.ImperiaConquest.User.MyUserDetails;
 import com.example.ImperiaConquest.User.User;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/empire")
@@ -23,12 +25,14 @@ public class EmpireController {
     EmpireService empireService;
     EmpireRepository empireRepository;
     MineService mineService;
+    MineRepository mineRepository;
 
-    public EmpireController(UserRepository userRepository, EmpireService empireService, EmpireRepository empireRepository, MineService mineService) {
+    public EmpireController(UserRepository userRepository, EmpireService empireService, EmpireRepository empireRepository, MineService mineService, MineRepository mineRepository) {
         this.userRepository = userRepository;
         this.empireService = empireService;
         this.empireRepository = empireRepository;
         this.mineService = mineService;
+        this.mineRepository = mineRepository;
     }
 
     @GetMapping("/add")
@@ -61,5 +65,12 @@ public class EmpireController {
         User user = userRepository.getUserByUsername(principal.getName());
         Empire empire = empireRepository.getEmpireByUserId(user.getId());
         return empireService.submitBuyMine(empire, mine, resource, model);
+    }
+
+    @PostMapping("/submit-mining/{resource}")
+    public String submitMining(@ModelAttribute Mine mine, @PathVariable("resource") String resource, Model model, Principal principal) {
+        User user = userRepository.getUserByUsername(principal.getName());
+        Empire empire = empireRepository.getEmpireByUserId(user.getId());
+        return mineService.submitMining(empire, mine, resource, model);
     }
 }

@@ -12,8 +12,12 @@ public class Mine {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "mining_capacity")
-    private int miningCapacity;
+    @Column(name = "gold_mining_capacity")
+    private int goldMiningCapacity;
+    @Column(name = "iron_mining_capacity")
+    private int ironMiningCapacity;
+    @Column(name = "wood_mining_capacity")
+    private int woodMiningCapacity;
     @Column(name = "last_mining")
     private LocalDateTime lastMining;
     @ManyToOne
@@ -27,12 +31,28 @@ public class Mine {
         this.id = id;
     }
 
-    public int getMiningCapacity() {
-        return miningCapacity;
+    public int getGoldMiningCapacity() {
+        return goldMiningCapacity;
     }
 
-    public void setMiningCapacity(int miningCapacity) {
-        this.miningCapacity = miningCapacity;
+    public void setGoldMiningCapacity(int goldMiningCapacity) {
+        this.goldMiningCapacity = goldMiningCapacity;
+    }
+
+    public int getIronMiningCapacity() {
+        return ironMiningCapacity;
+    }
+
+    public void setIronMiningCapacity(int ironMiningCapacity) {
+        this.ironMiningCapacity = ironMiningCapacity;
+    }
+
+    public int getWoodMiningCapacity() {
+        return woodMiningCapacity;
+    }
+
+    public void setWoodMiningCapacity(int woodMiningCapacity) {
+        this.woodMiningCapacity = woodMiningCapacity;
     }
 
     public LocalDateTime getLastMining() {

@@ -60,3 +60,7 @@ table.bordered-table,.bordered-table th,.bordered-table td {
     font-size: 12px;
 
 }
+
+.inline {
+    display: inline;
+}
