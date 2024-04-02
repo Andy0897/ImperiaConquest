@@ -23,6 +23,10 @@ public class Mine {
     @ManyToOne
     private Empire empire;
 
+    @Column(name = "name")
+    private String name;
+
+
     public Long getId() {
         return id;
     }
@@ -69,5 +73,18 @@ public class Mine {
 
     public void setEmpire(Empire empire) {
         this.empire = empire;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNameWithDefault(String defaultName) {
+        return name != null ? name : defaultName;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

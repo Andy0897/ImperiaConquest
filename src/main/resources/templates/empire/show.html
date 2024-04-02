@@ -47,7 +47,7 @@
     </div>
     <div class="mines-container">
         <div th:each="mine : ${empire.mines}" th:class="'mine' + ${mineService.checkIfCanMine(mine) ? ' mine-enabled' : ' mine-disabled'}">
-            <h2>Mine</h2>
+            <h2 th:text="${mine.getNameWithDefault('Mine')}"></h2>
             <div class="mine-notice"><span th:if="${mineService.checkIfCanMine(mine) == false}" th:text="'Mining Available In: ' + ${mineService.getMinutesToMine(mine)} + 'min'"></span></div>
             <div class="mine-row">
                 <img th:src="@{/images/gold.svg}" width="30" alt=""/>

@@ -2,6 +2,7 @@ package com.example.ImperiaConquest.Mine;
 
 import com.example.ImperiaConquest.Empire.Empire;
 import com.example.ImperiaConquest.Empire.EmpireService;
+import com.github.javafaker.Faker;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -22,9 +23,12 @@ public class MineService {
     }
 
     public Mine setUpMine(Mine mine) {
+        Faker faker = new Faker();
+
         mine.setGoldMiningCapacity(80);
         mine.setIronMiningCapacity(140);
         mine.setWoodMiningCapacity(220);
+        mine.setName(faker.space().galaxy());
         return mine;
     }
 
@@ -67,7 +71,7 @@ public class MineService {
         if(checkIfCanMine(mine)) {
             return 0;
         }
-        long minutes = ChronoUnit.MINUTES.between(mine.getLastMining(), LocalDateTime.now());
+        long minutes = 60 - ChronoUnit.MINUTES.between(mine.getLastMining(), LocalDateTime.now());
         return Math.abs(minutes);
     }
 
