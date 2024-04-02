@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 @Service
@@ -28,15 +29,9 @@ public class MineService {
     }
 
     public String submitMining(Empire empire, Mine mine, String resource, Model model) {
-        if(!checkIfCanMine(mine)) {
-            model.addAttribute("canMine", false);
-            model.addAttribute("empire", empire);
-            mine = new Mine();
-            model.addAttribute("mineBuy", mine);
-            return "empire/show";
+        if (checkIfCanMine(mine)) {
+            mining(empire, mine, resource);
         }
-        System.out.println(mine.getId());
-        mining(empire, mine, resource);
         return "redirect:/empire/show";
     }
 
@@ -57,7 +52,7 @@ public class MineService {
         updateMine(mine);
     }
 
-    private boolean checkIfCanMine(Mine mine) {
+    public boolean checkIfCanMine(Mine mine) {
         if(mine.getLastMining() != null) {
             return calculateHoursDifference(mine.getLastMining()) >= 1;
         }
@@ -67,6 +62,13 @@ public class MineService {
     private static long calculateHoursDifference(LocalDateTime time) {
         long hoursDifference = ChronoUnit.HOURS.between(time, LocalDateTime.now());
         return Math.abs(hoursDifference);
+    }
+    public long getMinutesToMine(Mine mine) {
+        if(checkIfCanMine(mine)) {
+            return 0;
+        }
+        long minutes = ChronoUnit.MINUTES.between(mine.getLastMining(), LocalDateTime.now());
+        return Math.abs(minutes);
     }
 
     public void updateMine(Mine mine) {

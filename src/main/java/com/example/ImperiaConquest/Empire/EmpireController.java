@@ -57,6 +57,7 @@ public class EmpireController {
         String resource = "";
         model.addAttribute("empire", empire);
         model.addAttribute("mineBuy", new Mine());
+        model.addAttribute("mineService", mineService);
         return "empire/show";
     }
 

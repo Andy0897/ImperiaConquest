@@ -64,3 +64,31 @@ table.bordered-table,.bordered-table th,.bordered-table td {
 .inline {
     display: inline;
 }
+
+.mines-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 1300px;
+    margin: 20px auto;
+}
+
+.mine {
+    width: 220px;
+    border-radius: 5px;
+    background: #fff;
+    padding: 10px;
+}
+.mine-disabled {
+    background: #d3d3d3;
+}
+.mine-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.mine-notice {
+    margin-bottom: 10px;
+}
