@@ -73,11 +73,9 @@ public class EmpireService {
     public String submitBuyMine(Empire empire, Mine mine, String resource, Model model) {
         if(checkIfCanBuyMine(empire, resource)){
             buyMine(mine, empire, resource);
-            return "redirect:/empire/show";
         }
-        model.addAttribute("empire", empire);
-        model.addAttribute("canBuyMine", false);
-        return "empire/show";
+        return "redirect:/empire/show";
+
     }
 
     private boolean checkIfCanBuyMine(Empire empire, String resource) {

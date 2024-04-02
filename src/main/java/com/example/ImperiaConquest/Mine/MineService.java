@@ -2,12 +2,13 @@ package com.example.ImperiaConquest.Mine;
 
 import com.example.ImperiaConquest.Empire.Empire;
 import com.example.ImperiaConquest.Empire.EmpireService;
-import jakarta.validation.constraints.Min;
+import com.github.javafaker.Faker;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 @Service
@@ -22,9 +23,12 @@ public class MineService {
     }
 
     public Mine setUpMine(Mine mine) {
+        Faker faker = new Faker();
+
         mine.setGoldMiningCapacity(80);
         mine.setIronMiningCapacity(140);
         mine.setWoodMiningCapacity(220);
+        mine.setName(faker.space().galaxy());
         return mine;
     }
 
