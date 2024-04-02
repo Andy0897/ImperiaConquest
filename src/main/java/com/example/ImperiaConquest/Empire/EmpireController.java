@@ -75,4 +75,12 @@ public class EmpireController {
         Mine mine = mineRepository.getMineById(mineId);
         return mineService.submitMining(empire, mine, resource, model);
     }
+
+    @PostMapping("/submit-mine-upgrade/{resource}")
+    public String submitUpgradeMine(@RequestParam Long mineId, @PathVariable("resource") String resource, Model model, Principal principal) {
+        User user = userRepository.getUserByUsername(principal.getName());
+        Empire empire = empireRepository.getEmpireByUserId(user.getId());
+        Mine mine = mineRepository.getMineById(mineId);
+        return mineService.submitUpgradeMine(mine, empire, resource, model);
+    }
 }

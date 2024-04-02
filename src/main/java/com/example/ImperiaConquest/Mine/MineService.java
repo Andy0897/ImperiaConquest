@@ -2,6 +2,7 @@ package com.example.ImperiaConquest.Mine;
 
 import com.example.ImperiaConquest.Empire.Empire;
 import com.example.ImperiaConquest.Empire.EmpireService;
+import jakarta.validation.constraints.Min;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -42,9 +43,7 @@ public class MineService {
 
     private void mining(Empire empire, Mine mine, String resource) {
         if(resource.equals("gold")) {
-            System.out.println(empire.getGold());
             empire.setGold(empire.getGold() + mine.getGoldMiningCapacity());
-            System.out.println(empire.getGold());
         }
         else if(resource.equals("iron")) {
             empire.setIron(empire.getIron() + mine.getIronMiningCapacity());
@@ -67,6 +66,45 @@ public class MineService {
     private static long calculateHoursDifference(LocalDateTime time) {
         long hoursDifference = ChronoUnit.HOURS.between(time, LocalDateTime.now());
         return Math.abs(hoursDifference);
+    }
+
+    public String submitUpgradeMine(Mine mine, Empire empire, String resource, Model model) {
+        if(!checkIfCanPayUpgrade(empire, resource)) {
+            model.addAttribute("canUpgradeMine", false);
+            model.addAttribute("empire", empire);
+            mine = new Mine();
+            model.addAttribute("mineBuy", mine);
+            return "empire/show";
+        }
+        payUpgrade(empire, resource);
+        upgradeMine(mine);
+        return "redirect:/empire/show";
+    }
+
+    private boolean checkIfCanPayUpgrade(Empire empire, String resource) {
+        return resource.equals("gold") && empire.getGold() >= 50 ||
+                resource.equals("iron") && empire.getIron() >= 100 ||
+                resource.equals("wood") && empire.getWood() >= 200;
+    }
+
+    private void payUpgrade(Empire empire, String resource) {
+        if(resource.equals("gold")) {
+            empire.setGold(empire.getGold() - 50);
+        }
+        else if(resource.equals("iron")) {
+            empire.setIron(empire.getIron() - 100);
+        }
+        else {
+            empire.setWood(empire.getWood() - 200);
+        }
+        empireService.updateEmpire(empire);
+    }
+
+    private void upgradeMine(Mine mine) {
+        mine.setGoldMiningCapacity(mine.getGoldMiningCapacity() + 10);
+        mine.setIronMiningCapacity(mine.getIronMiningCapacity() + 20);
+        mine.setWoodMiningCapacity(mine.getWoodMiningCapacity() + 40);
+        updateMine(mine);
     }
 
     public void updateMine(Mine mine) {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Add Your Empire</title>
 </head>
-<body>
+<body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
 <form th:action="@{/empire/save}" method="post" th:object="${empire}">
     <div class="div">
         Name: <input type="text" th:field="*{name}"/>
