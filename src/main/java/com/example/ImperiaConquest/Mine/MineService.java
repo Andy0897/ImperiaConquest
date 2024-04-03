@@ -24,7 +24,6 @@ public class MineService {
 
     public Mine setUpMine(Mine mine) {
         Faker faker = new Faker();
-
         mine.setGoldMiningCapacity(80);
         mine.setIronMiningCapacity(140);
         mine.setWoodMiningCapacity(220);
@@ -60,7 +59,7 @@ public class MineService {
         updateMine(mine);
     }
 
-    private boolean checkIfCanMine(Mine mine) {
+    public boolean checkIfCanMine(Mine mine) {
         if(mine.getLastMining() != null) {
             return calculateHoursDifference(mine.getLastMining()) >= 1;
         }
@@ -102,6 +101,14 @@ public class MineService {
             empire.setWood(empire.getWood() - 200);
         }
         empireService.updateEmpire(empire);
+    }
+
+    public long getMinutesToMine(Mine mine) {
+        if(checkIfCanMine(mine)) {
+            return 0;
+        }
+        long minutes = 60 - ChronoUnit.MINUTES.between(mine.getLastMining(), LocalDateTime.now());
+        return Math.abs(minutes);
     }
 
     private void upgradeMine(Mine mine) {

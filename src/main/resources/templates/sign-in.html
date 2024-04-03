@@ -1,24 +1,64 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="partials/head"></head>
-<body>
-    <h1 class="page-title">Sign In</h1>
-<form class="form-sign-in" th:action="@{/sign-in}" method="post">
-    <div th:if="${param.error}">
-        Invalid username or password.
+<body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+            <div class="card border-0 shadow-sm rounded-4" style="margin-top: 40px;" >
+                <div class="card-body p-3 p-md-4 p-xl-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-5">
+                                <h3>Sign In</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <form th:action="@{/sign-in}" method="post">
+                        <div class="row gy-3 overflow-hidden">
+                            <div class="col-12">
+                                <div th:if="${param.error}">
+                                    Invalid username or password.
+                                </div>
+                                <div th:if="${param.logout}">
+                                    You have been logged out.
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" name="usernameOrEmail" id="email"
+                                           placeholder="name@example.com">
+                                    <label for="email" class="form-label">Username Or Email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" name="password" id="password"
+                                           placeholder="Password">
+                                    <label for="password" class="form-label">Password</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-grid">
+                                    <button class="btn bsb-btn-2xl btn-primary" type="submit">Sign In</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-12">
+                            <hr class="mt-5 mb-4 border-secondary-subtle">
+                            <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
+                                <a href="#!" class="link-secondary text-decoration-none">Create new account</a>
+                                <a href="#!" class="link-secondary text-decoration-none">Forgot password</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div th:if="${param.logout}">
-        You have been logged out.
-    </div>
-    <div>
-        <input type="text" name="usernameOrEmail" placeholder="Username or Email"/>
-    </div>
-    <div>
-        <input type="password" name="password" placeholder="Enter your Password"/>
-    </div>
-    <div>
-        <input type="submit" value="Sign In" class="btn btn-primary form-control" />
-    </div>
-</form>
+</div>
+</div>
 </body>
 </html>

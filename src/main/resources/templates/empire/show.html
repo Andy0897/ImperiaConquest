@@ -3,7 +3,7 @@
 <head th:replace="partials/head"></head>
 <body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
 <div class="container">
-    <div class="container row">
+    <div class="container row" style="margin-top: 40px;">
         <h1 class="page-title" th:text="${empire.name}" style="color: white"></h1>
         <div class="col">
             <div class="card bg-light text-center p-3">
@@ -30,28 +30,34 @@
                 <div class="container">
                     <div class="btn-group center">
                         <form th:action="@{/empire/buy-mine/gold}" method="post" th:object="${mineBuy}">
-                            <button type="submit" name="resource" class="btn">100 <img th:src="@{/images/wood.svg}" width="30" alt=""/></button>
+                            <button type="submit" name="resource" class="btn">100 <img th:src="@{/images/gold.svg}"
+                                                                                       width="30" alt=""/></button>
                         </form>
                         <form th:action="@{/empire/buy-mine/iron}" method="post" th:object="${mineBuy}">
-                            <button type="submit" name="resource" class="btn">100 <img th:src="@{/images/iron.svg}" width="30" alt=""/></button>
+                            <button type="submit" name="resource" class="btn">100 <img th:src="@{/images/iron.svg}"
+                                                                                       width="30" alt=""/></button>
                         </form>
                         <form th:action="@{/empire/buy-mine/wood}" method="post" th:object="${mineBuy}">
-                            <button type="submit" name="resource" class="btn">400 <img th:src="@{/images/wood.svg}" width="30" alt=""/></button>
+                            <button type="submit" name="resource" class="btn">400 <img th:src="@{/images/wood.svg}"
+                                                                                       width="30" alt=""/></button>
                         </form>
                     </div>
                 </div>
 
                 <div th:if="${canBuyMine == false}" class="alert alert-danger mt-3" role="alert">
                     <span class="mb-0">You don't have enough resources to buy a new mine!</span>
-                    <a href="/empire/show" >X</a>
+                    <a href="/empire/show">X</a>
                 </div>
             </div>
 
             <div th:if="${canMine == false}" class="alert alert-danger mt-3" role="alert">
                 <p class="mb-0">You can't mine now! Try later.</p>
-                <button type="button" class="btn-close" aria-label="Close">
-                    <a href="/empire/show" class="btn-close" aria-label="Close"></a>
-                </button>
+                <a href="/empire/show" style="display: inline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x"
+                         viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"></path>
+                    </svg>
+                </a>
             </div>
             <div th:if="${#lists.isEmpty(empire.mines)}">
                 <div class="alert alert-warning mt-3" role="alert">
@@ -69,21 +75,39 @@
                             <img th:src="@{/images/gold.svg}" width="30" alt=""/>
                             <span th:text="|${mine.goldMiningCapacity} per hour|"></span>
                             <form th:action="@{/empire/submit-mining/gold?(mineId=${mine.id})}" method="post">
-                                <button type="submit" class="btn btn-outline-info mt-2">Mine</button>
+                                <button th:if="${mineService.checkIfCanMine(mine)}" type="submit"
+                                        class="btn btn-outline-info mt-2">Mine
+                                </button>
+                                <button th:if="${mineService.checkIfCanMine(mine) == false}" type="submit"
+                                        class="btn btn-outline-info mt-2" disabled><span
+                                        th:text="'Mining Available In: ' + ${mineService.getMinutesToMine(mine)} + 'min'"></span>
+                                </button>
                             </form>
                         </div>
                         <div class="col">
                             <img th:src="@{/images/iron.svg}" width="30" alt=""/>
                             <span th:text="|${mine.ironMiningCapacity} per hour|"></span>
                             <form th:action="@{/empire/submit-mining/iron?(mineId=${mine.id})}" method="post">
-                                <button type="submit" class="btn btn-outline-info mt-2">Mine</button>
+                                <button th:if="${mineService.checkIfCanMine(mine)}" type="submit"
+                                        class="btn btn-outline-info mt-2">Mine
+                                </button>
+                                <button th:if="${mineService.checkIfCanMine(mine) == false}" type="submit"
+                                        class="btn btn-outline-info mt-2" disabled><span
+                                        th:text="'Mining Available In: ' + ${mineService.getMinutesToMine(mine)} + 'min'"></span>
+                                </button>
                             </form>
                         </div>
                         <div class="col">
                             <img th:src="@{/images/wood.svg}" width="30" alt=""/>
                             <span th:text="|${mine.woodMiningCapacity} per hour|"></span>
                             <form th:action="@{/empire/submit-mining/wood?(mineId=${mine.id})}" method="post">
-                                <button type="submit" class="btn btn-outline-info mt-2">Mine</button>
+                                <button th:if="${mineService.checkIfCanMine(mine)}" type="submit"
+                                        class="btn btn-outline-info mt-2">Mine
+                                </button>
+                                <button th:if="${mineService.checkIfCanMine(mine) == false}" type="submit"
+                                        class="btn btn-outline-info mt-2" disabled><span
+                                        th:text="'Mining Available In: ' + ${mineService.getMinutesToMine(mine)} + 'min'"></span>
+                                </button>
                             </form>
                         </div>
                     </div>
