@@ -1,32 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="partials/head"></head>
-<body>
-    <h1 class="page-title">Sign Up</h1>
-<form class="form-sign-up" th:action="@{/submit-user}" method="post" th:object="${user}">
-    <div>
-        <input type="text" th:field="*{username}" placeholder="Enter your Username">
-        <div><span style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span></div>
-        <div><span style="color: red" th:if="${existsUserByUsername}" th:text="|This username is taken|"></span></div>
+<body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+            <div class="card border-0 shadow-sm rounded-4" style="margin-top: 40px;">
+                <div class="card-body p-3 p-md-4 p-xl-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-4">
+                                <h3>Sign Up</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <form th:action="@{/submit-user}" method="post" th:object="${user}">
+                        <div class="row gy-3 overflow-hidden">
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" th:field="*{username}"
+                                           placeholder="Enter your Username" id="username">
+                                    <label for="username" class="form-label">Enter your Username</label>
+                                </div>
+                                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                                     class="alert alert-danger mt-3" role="alert"></div>
+                                <div th:if="${existsUserByUsername}" th:text="|This username is already used|"
+                                     class="alert alert-danger mt-3" role="alert"></div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" th:field="*{email}"
+                                           placeholder="Enter your Email" id="email">
+                                    <label for="email" class="form-label">Enter your Email</label>
+                                </div>
+                                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                     class="alert alert-danger mt-3" role="alert"></div>
+                                <div th:if="${existsUserByEmail}" th:text="|This email is already used|"
+                                     class="alert alert-danger mt-3" role="alert"></div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" th:field="*{password}"
+                                           placeholder="Password" id="password">
+                                    <label for="password" class="form-label">Enter your Password</label>
+                                </div>
+                                <div th:if="${#fields.hasErrors('password')}" class="alert alert-danger mt-3"
+                                     role="alert">
+                                    <span th:errors="*{password}"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" name="repeatPassword"
+                                           id="repeatPassword"
+                                           placeholder="Repeat Password">
+                                    <label for="repeatPassword" class="form-label">Repeat your Password</label>
+                                </div>
+                                <div th:if="${comparePasswords}" th:text="|Passwords don't match|"
+                                     class="alert alert-danger mt-3" role="alert"></div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-grid">
+                                    <button class="btn bsb-btn-2xl btn-outline-success" type="submit">Sign In</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-12">
+                            <hr class="mt-4 mb-4 border-secondary-subtle">
+                            <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
+                                <a href="/sign-in" class="link-secondary text-decoration-none">Already have account?</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <input type="email" th:field="*{email}" placeholder="Enter your Email">
-        <div><span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span></div>
-        <div><span style="color: red" th:if="${existsUserByEmail}" th:text="|Already exists account with this email|"></span></div>
-    </div>
-    <div>
-        <input type="password" th:field="*{password}" placeholder="Enter your Password">
-        <div><span style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span></div>
-    </div>
-    <div>
-        <input type="password" th:field="*{repeatPassword}" placeholder="Repeat your Password">
-        <div><span style="color: red" th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}"></span></div>
-        <div><span style="color: red" th:if="${comparePasswords}" th:text="|Passwords don't match|"></span></div>
-    </div>
-    <a th:href="@{/sign-in}">Already have account?</a>
-    <div>
-        <input type="submit" value="Sign Up">
-    </div>
-</form>
+</div>
+
 </body>
 </html>

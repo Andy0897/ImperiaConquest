@@ -1,13 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-<h1>Create your Empire</h1>
-<form th:action="@{/empire/add}" method="get">
-    <input type="submit" value="Play Now">
-</form>
+<head th:replace="partials/head"></head>
+<body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
+<div class="container">
+    <div class="row rounded-5" style="margin-top: 40px;">
+        <div class="col bg-light rounded-start-5">
+            <div class="container mb-5">
+                <img th:src="@{/images/ImperiaConquest-icon.png}" class="container" alt=""/>
+                <div class="container mb-4 col-10">
+                    <p class="lead">Welcome to the world of Imperia Conquest, where empires rise and fall, and your
+                        strategic prowess determines your fate.</p>
+                    <p class="lead">Are you ready to embark on a journey of conquest and domination? Dive into a realm
+                        where
+                        your decisions shape the course of history.</p>
+                    <p class="lead">Lead your armies to victory, forge alliances, and build a mighty empire that will
+                        stand
+                        the test of time.</p>
+                    <p class="lead">Join the ranks of legendary leaders and carve your name into the annals of history.
+                        The
+                        world awaits your command!</p>
+                </div>
+                <form action="/empire/show" method="get" class="mb-4">
+                    <div class="d-grid gap-2 col-4 mx-auto">
+                        <input type="submit" class="btn btn-outline-success" value="Play Now">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="col bg-light rounded-end-5"
+             style="background-image: url('/images/war.jpeg'); background-size: 700px; background-repeat: no-repeat;">
+        </div>
+    </div>
+</div>
 </body>
 </html>

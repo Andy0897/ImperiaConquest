@@ -53,6 +53,9 @@ public class EmpireController {
 
     @GetMapping("/show")
     public String showEmpire(Model model, Principal principal) {
+        if(empireService.getEmpireByUsername(principal.getName()) == null) {
+            return "redirect:/empire/add";
+        }
         Empire empire = empireService.getEmpireByUsername(principal.getName());
         String resource = "";
         model.addAttribute("empire", empire);

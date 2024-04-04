@@ -3,7 +3,7 @@
 <head th:replace="partials/head"></head>
 <body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
 <div class="container">
-    <div class="container row" style="margin-top: 40px;">
+    <div class="container row mt-4" >
         <h1 class="page-title" th:text="${empire.name}" style="color: white"></h1>
         <div class="col">
             <div class="card bg-light text-center p-3">
@@ -27,21 +27,19 @@
         <div class="col-md-8">
             <div class="card bg-light text-center p-3">
                 <h3>Buy Mine</h3>
-                <div class="container">
-                    <div class="btn-group center">
-                        <form th:action="@{/empire/buy-mine/gold}" method="post" th:object="${mineBuy}">
-                            <button type="submit" name="resource" class="btn">100 <img th:src="@{/images/gold.svg}"
-                                                                                       width="30" alt=""/></button>
-                        </form>
-                        <form th:action="@{/empire/buy-mine/iron}" method="post" th:object="${mineBuy}">
-                            <button type="submit" name="resource" class="btn">100 <img th:src="@{/images/iron.svg}"
-                                                                                       width="30" alt=""/></button>
-                        </form>
-                        <form th:action="@{/empire/buy-mine/wood}" method="post" th:object="${mineBuy}">
-                            <button type="submit" name="resource" class="btn">400 <img th:src="@{/images/wood.svg}"
-                                                                                       width="30" alt=""/></button>
-                        </form>
-                    </div>
+                <div class=" row container">
+                    <form th:action="@{/empire/buy-mine/gold}" method="post" th:object="${mineBuy}" class="col">
+                        <button type="submit" class="btn btn-outline-success mt-2">100 <img
+                                th:src="@{/images/wood.svg}" width="30" alt=""/></button>
+                    </form>
+                    <form th:action="@{/empire/buy-mine/iron}" method="post" th:object="${mineBuy}" class="col">
+                        <button type="submit" class="btn btn-outline-success mt-2">200 <img
+                                th:src="@{/images/iron.svg}" width="30" alt=""/></button>
+                    </form>
+                    <form th:action="@{/empire/buy-mine/wood}" method="post" th:object="${mineBuy}" class="col">
+                        <button type="submit" class="btn btn-outline-success mt-2">400 <img
+                                th:src="@{/images/gold.svg}" width="30" alt=""/></button>
+                    </form>
                 </div>
 
                 <div th:if="${canBuyMine == false}" class="alert alert-danger mt-3" role="alert">

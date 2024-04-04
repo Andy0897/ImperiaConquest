@@ -24,11 +24,10 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/submit-user","/sign-up").permitAll()
+                        .requestMatchers("/", "/home").permitAll()
                         .requestMatchers("/styles/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/sign-in", "/sign-up").anonymous()
+                        .requestMatchers("/sign-in", "/sign-up", "/submit-user").anonymous()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
@@ -38,8 +37,12 @@ public class WebSecurityConfig {
                         .defaultSuccessUrl("/home")
                         .permitAll()
                 )
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.sendRedirect("/access-denied");
+                        })
+                )
                 .logout((logout) -> logout.permitAll());
-
         return http.build();
     }
 }

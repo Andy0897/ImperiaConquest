@@ -1,5 +1,6 @@
 package com.example.ImperiaConquest.User;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,8 +18,8 @@ public class UserService {
         this.userMapper = userMapping;
     }
 
-    public String submitUser(UserDTO userDTO, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors() || !comparePasswords(userDTO.getPassword(), userDTO.getRepeatPassword()) || checkIfExistsUserByUsername(userDTO.getUsername())) {
+    public String submitUser(@Valid UserDTO userDTO, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors() || !comparePasswords(userDTO.getPassword(), userDTO.getRepeatPassword()) || checkIfExistsUserByUsername(userDTO.getUsername()) || checkIfExistsUserByEmail(userDTO.getEmail())) {
             model.addAttribute("user", userDTO);
             model.addAttribute("existsUserByUsername", checkIfExistsUserByUsername(userDTO.getUsername()));
             model.addAttribute("existsUserByEmail", checkIfExistsUserByEmail(userDTO.getEmail()));
