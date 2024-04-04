@@ -100,4 +100,8 @@ public class EmpireService {
     public Long getEmpireWins(Empire empire) {
         return (long) empire.getWins().size();
     }
+
+    public EmpireRepository getEmpireRepository() {
+        return empireRepository;
+    }
 }

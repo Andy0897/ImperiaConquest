@@ -17,4 +17,8 @@ public class BuildingService {
     public List<Building> getGarrisonBuildingsByEmpire(Empire empire) {
         return buildingRepository.findByEmpireAndType(empire, BuildingTypes.GARRISON.toString());
     }
+
+    public BuildingRepository getBuildingRepository() {
+        return buildingRepository;
+    }
 }

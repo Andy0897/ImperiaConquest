@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="text-center pt-2">
-                    <a href="#" class="btn btn-danger">Purchase Building</a>
+                    <div th:replace="components/building-form :: buildingForm(type=GARRISON)"></div>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="text-center pt-2">
-                    <a href="#" class="btn btn-danger">Purchase Building</a>
+                    <div th:replace="components/building-form :: buildingForm(type=QUARTERS)"></div>
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="text-center pt-2">
-                    <a href="#" class="btn btn-danger">Purchase Building</a>
+                    <div th:replace="components/building-form :: buildingForm(type=BARRACKS)"></div>
                 </div>
             </div>
         </div>
