@@ -10,4 +10,6 @@ public interface EmpireRepository extends CrudRepository<Empire, Long> {
     public Empire getEmpireByUserId(@Param("user_id") Long user_id);
     @Query("SELECT e FROM Empire e WHERE e.id <> :idToExclude")
     List<Empire> findAllByIdNot(Long idToExclude);
+
+
 }

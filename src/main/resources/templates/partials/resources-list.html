@@ -1,0 +1,14 @@
+<div class="d-flex gap-2" th:fragment="resourceList (gold, iron, wood)">
+    <div>
+        <img th:src="@{/images/gold.svg}" width="30" alt=""/>
+        <span th:text="${gold}"></span>
+    </div>
+    <div>
+        <img th:src="@{/images/iron.svg}" width="30" alt=""/>
+        <span th:text="${iron}"></span>
+    </div>
+    <div>
+        <img th:src="@{/images/wood.svg}" width="30" alt=""/>
+        <span th:text="${wood}"></span>
+    </div>
+</div>
