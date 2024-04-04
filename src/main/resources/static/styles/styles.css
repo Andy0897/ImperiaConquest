@@ -58,3 +58,13 @@ table.bordered-table,.bordered-table th,.bordered-table td {
     color: #FFF;
     display: inline-block;
     font-size: 12px;
+
+
+.nav-link.active {
+    background: red !important;
+}
+
+.resources-list {
+    display: flex;
+    gap:5px;
+}

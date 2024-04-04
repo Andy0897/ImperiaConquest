@@ -1,5 +1,7 @@
 package com.example.ImperiaConquest.Empire;
 
+import com.example.ImperiaConquest.Building.Building;
+import com.example.ImperiaConquest.Building.BuildingService;
 import com.example.ImperiaConquest.Mine.Mine;
 import com.example.ImperiaConquest.Mine.MineRepository;
 import com.example.ImperiaConquest.Mine.MineService;
@@ -13,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.List;
+
 @Service
 public class EmpireService {
     UserRepository userRepository;
@@ -20,12 +24,19 @@ public class EmpireService {
     MineRepository mineRepository;
     MineService mineService;
 
+    BuildingService buildingService;
+
     @Autowired
-    public EmpireService(UserRepository userRepository, EmpireRepository empireRepository, MineRepository mineRepository, MineService mineService) {
+    public EmpireService(UserRepository userRepository, EmpireRepository empireRepository, MineRepository mineRepository, MineService mineService, BuildingService buildingService) {
         this.userRepository = userRepository;
         this.empireRepository = empireRepository;
         this.mineRepository = mineRepository;
         this.mineService = mineService;
+        this.buildingService = buildingService;
+    }
+
+    public List<Building> getGarrisonBuildings(Empire empire) {
+        return buildingService.getGarrisonBuildingsByEmpire(empire);
     }
 
     public String saveEmpire(@ModelAttribute Empire empire, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myuserDetails) {
@@ -58,20 +69,18 @@ public class EmpireService {
     }
 
     private void payMine(Empire empire, String resource) {
-        if(resource.equals("gold")) {
+        if (resource.equals("gold")) {
             empire.setGold(empire.getGold() - 100);
-        }
-        else if(resource.equals("iron")) {
+        } else if (resource.equals("iron")) {
             empire.setIron(empire.getIron() - 200);
-        }
-        else {
+        } else {
             empire.setWood(empire.getWood() - 400);
         }
         updateEmpire(empire);
     }
 
     public String submitBuyMine(Empire empire, Mine mine, String resource, Model model) {
-        if(checkIfCanBuyMine(empire, resource)){
+        if (checkIfCanBuyMine(empire, resource)) {
             buyMine(mine, empire, resource);
         }
         return "redirect:/empire/show";
@@ -88,7 +97,7 @@ public class EmpireService {
         empireRepository.save(empire);
     }
 
-    public Long getEmpireWins(Empire empire){
+    public Long getEmpireWins(Empire empire) {
         return (long) empire.getWins().size();
     }
 }

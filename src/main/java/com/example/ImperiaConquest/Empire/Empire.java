@@ -1,15 +1,20 @@
 package com.example.ImperiaConquest.Empire;
 
 import com.example.ImperiaConquest.BattleLog.BattleLog;
+import com.example.ImperiaConquest.Building.Building;
+import com.example.ImperiaConquest.Building.BuildingRepository;
+import com.example.ImperiaConquest.Building.BuildingService;
 import com.example.ImperiaConquest.Mine.Mine;
 import com.example.ImperiaConquest.User.User;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Entity
 @Table(name = "empires")
 public class Empire {
+
     @Column(name = "empire_id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +25,13 @@ public class Empire {
     private String name;
     @OneToMany
     private List<Mine> mines;
+
+    public void setBuildings(List<Building> buildings) {
+        this.buildings = buildings;
+    }
+
+    @OneToMany
+    private List<Building> buildings;
     @Column(name = "gold")
     private int gold;
     @Column(name = "wood")
@@ -106,4 +118,10 @@ public class Empire {
     public void addMine(Mine mine) {
         mines.add(mine);
     }
+
+    public List<Building> getBuildings() {
+        return buildings;
+    }
+
+
 }

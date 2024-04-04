@@ -1,5 +1,7 @@
 package com.example.ImperiaConquest.Empire;
 
+import com.example.ImperiaConquest.Building.BuildingRepository;
+import com.example.ImperiaConquest.Building.BuildingService;
 import com.example.ImperiaConquest.Mine.Mine;
 import com.example.ImperiaConquest.Mine.MineRepository;
 import com.example.ImperiaConquest.Mine.MineService;
@@ -28,12 +30,15 @@ public class EmpireController {
     MineService mineService;
     MineRepository mineRepository;
 
-    public EmpireController(UserRepository userRepository, EmpireService empireService, EmpireRepository empireRepository, MineService mineService, MineRepository mineRepository) {
+    BuildingService buildingService;
+
+    public EmpireController(UserRepository userRepository, EmpireService empireService, EmpireRepository empireRepository, MineService mineService, MineRepository mineRepository, BuildingService buildingService) {
         this.userRepository = userRepository;
         this.empireService = empireService;
         this.empireRepository = empireRepository;
         this.mineService = mineService;
         this.mineRepository = mineRepository;
+        this.buildingService = buildingService;
     }
 
     @GetMapping("/add")
@@ -58,6 +63,7 @@ public class EmpireController {
         model.addAttribute("empire", empire);
         model.addAttribute("mineBuy", new Mine());
         model.addAttribute("mineService", mineService);
+        model.addAttribute("empireService", empireService);
         return "empire/show";
     }
 
