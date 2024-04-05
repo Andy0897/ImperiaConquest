@@ -1,5 +1,5 @@
 <form th:action="@{/building/save}" method="post" th:fragment="buildingForm(type)">
     <input type="hidden" name="type" th:value="${type}"/>
     <input type="hidden" name="empire_id" th:value="${empire.getId()}"/>
-    <button class="btn btn-danger" type="submit">Purchase Building</button>
+    <button class="btn btn-outline-success" type="submit">Purchase Building</button>
 </form>

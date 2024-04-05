@@ -52,8 +52,8 @@ public class EmpireService {
 
     private void setResources(Empire empire) {
         empire.setGold(100);
-        empire.setWood(100);
-        empire.setIron(100);
+        empire.setWood(200);
+        empire.setIron(400);
     }
 
     public Empire getEmpireByUsername(String username) {
