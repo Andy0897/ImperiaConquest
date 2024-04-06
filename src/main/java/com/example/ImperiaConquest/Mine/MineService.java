@@ -39,12 +39,11 @@ public class MineService {
             model.addAttribute("mineBuy", mine);
             return "empire/show";
         }
-        System.out.println(mine.getId());
         mining(empire, mine, resource);
         return "redirect:/empire/show";
     }
 
-    private void mining(Empire empire, Mine mine, String resource) {
+    public void mining(Empire empire, Mine mine, String resource) {
         if(resource.equals("gold")) {
             empire.setGold(empire.getGold() + mine.getGoldMiningCapacity());
         }
@@ -66,7 +65,7 @@ public class MineService {
         return true;
     }
 
-    private static long calculateHoursDifference(LocalDateTime time) {
+    public static long calculateHoursDifference(LocalDateTime time) {
         long hoursDifference = ChronoUnit.HOURS.between(time, LocalDateTime.now());
         return Math.abs(hoursDifference);
     }
@@ -84,13 +83,13 @@ public class MineService {
         return "redirect:/empire/show";
     }
 
-    private boolean checkIfCanPayUpgrade(Empire empire, String resource) {
+    public boolean checkIfCanPayUpgrade(Empire empire, String resource) {
         return resource.equals("gold") && empire.getGold() >= 50 ||
                 resource.equals("iron") && empire.getIron() >= 100 ||
                 resource.equals("wood") && empire.getWood() >= 200;
     }
 
-    private void payUpgrade(Empire empire, String resource) {
+    public void payUpgrade(Empire empire, String resource) {
         if(resource.equals("gold")) {
             empire.setGold(empire.getGold() - 50);
         }
@@ -111,7 +110,7 @@ public class MineService {
         return Math.abs(minutes);
     }
 
-    private void upgradeMine(Mine mine) {
+    public void upgradeMine(Mine mine) {
         mine.setGoldMiningCapacity(mine.getGoldMiningCapacity() + 10);
         mine.setIronMiningCapacity(mine.getIronMiningCapacity() + 20);
         mine.setWoodMiningCapacity(mine.getWoodMiningCapacity() + 40);
