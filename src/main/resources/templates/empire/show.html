@@ -25,6 +25,10 @@
             </div>
         </div>
         <div class="col-md-8">
+            <div class="alert alert-danger" role="alert" th:if="${warningMessage}">
+                <span th:text="${warningMessage}"></span>
+            </div>
+
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link  bg-light link-success" id="nav-home-tab" data-bs-toggle="tab"

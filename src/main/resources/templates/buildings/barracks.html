@@ -1,0 +1,36 @@
+<div class="card" style="">
+    <div class="card-body">
+        <div class="d-flex justify-content-between mb-2 ">
+            <h5 class="card-title">Barracks
+                (Level: <span th:text="${empireService.getBarracksBuildings(empire).getLevel()}"></span>)
+            </h5>
+            <div th:replace="partials/resources-list :: resourceList(gold=1500, iron=1800, wood=3800)"></div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col p-2 d-flex flex-column justify-content-center align-items-center border">
+                    <img th:src="@{/images/ninja.svg}" width="50" alt=""/>
+                    <span class="text-secondary">Ninja</span>
+
+                </div>
+                <div class="col p-2 d-flex flex-column justify-content-center align-items-center border">
+                    <img th:src="@{/images/viking.svg}" width="50" alt=""/>
+                    <span class="text-secondary">Viking</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center pt-2">
+
+            <div th:if="${empireService.getBarracksBuildings(empire).getId() == null}">
+                <div th:replace="buildings/building-form :: buildingForm(type=BARRACKS)"></div>
+            </div>
+
+            <div th:unless="${empireService.getBarracksBuildings(empire).getId() == null}">
+                UPGRADE MEEEEE
+            </div>
+
+        </div>
+    </div>
+</div>
