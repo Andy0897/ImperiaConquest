@@ -34,7 +34,7 @@ public class EmpireService {
     }
 
     public Building getGarrisonBuildings(Empire empire) {
-        return (Building)this.buildingService.getGarrisonBuildingsByEmpire(empire).orElseGet(Building::new);
+        return (Building) this.buildingService.getGarrisonBuildingsByEmpire(empire).orElseGet(Building::new);
     }
 
     public Building getQuartersBuildings(Empire empire) {

@@ -2,9 +2,17 @@
     <div class="card-body">
         <div class="d-flex justify-content-between mb-2 ">
             <h5 class="card-title">Barracks
-                (Level: <span th:text="${empireService.getBarracksBuildings(empire).getLevel()}"></span>)
+                (Level:
+                <span th:text="${empireService.getBarracksBuildings(empire).getLevel()}"></span>
+                )
             </h5>
-            <div th:replace="partials/resources-list :: resourceList(gold=1500, iron=1800, wood=3800)"></div>
+            <div th:replace="partials/resources-list :: resourceList(
+                gold=${buildingService.getBarracksBuildingCost(empire).get('GOLD')},
+                    iron=${buildingService.getBarracksBuildingCost(empire).get('IRON')},
+                    wood=${buildingService.getBarracksBuildingCost(empire).get('WOOD')},
+            )">
+
+            </div>
         </div>
 
         <div class="container">
@@ -24,13 +32,12 @@
         <div class="text-center pt-2">
 
             <div th:if="${empireService.getBarracksBuildings(empire).getId() == null}">
-                <div th:replace="buildings/building-form :: buildingForm(type=BARRACKS)"></div>
+                <div th:replace="buildings/building-form :: buildingForm(type=BARRACKS, buttonText='Purchase Building')"></div>
             </div>
 
             <div th:unless="${empireService.getBarracksBuildings(empire).getId() == null}">
-                UPGRADE MEEEEE
+                <div th:replace="buildings/building-form :: buildingForm(type=BARRACKS, buttonText='Upgrade')"></div>
             </div>
-
         </div>
     </div>
 </div>

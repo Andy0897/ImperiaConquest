@@ -5,7 +5,11 @@
                 (Level: <span th:text="${empireService.getQuartersBuildings(empire).getLevel()}"></span>)
             </h5>
 
-            <div th:replace="partials/resources-list :: resourceList(gold=700, iron=540, wood=860)"></div>
+            <div th:replace="partials/resources-list :: resourceList(
+            gold=${buildingService.getQuartersBuildingCost(empire).get('GOLD')},
+            iron=${buildingService.getQuartersBuildingCost(empire).get('IRON')},
+            wood=${buildingService.getQuartersBuildingCost(empire).get('WOOD')},
+            )"></div>
         </div>
 
         <div class="container">
@@ -23,11 +27,11 @@
 
         <div class="text-center pt-2">
             <div th:if="${empireService.getQuartersBuildings(empire).getId() == null}">
-                <div th:replace="buildings/building-form :: buildingForm(type=QUARTERS)"></div>
+                <div th:replace="buildings/building-form :: buildingForm(type=QUARTERS, buttonText='Purchase Building')"></div>
             </div>
 
             <div th:unless="${empireService.getQuartersBuildings(empire).getId() == null}">
-                UPGRADE MEEEEE
+                <div th:replace="buildings/building-form :: buildingForm(type=QUARTERS, buttonText='Upgrade')"></div>
             </div>
         </div>
     </div>

@@ -5,7 +5,13 @@
                 <h5 class="card-title">Garrison
                     (Level: <span th:text="${empireService.getGarrisonBuildings(empire).getLevel()}"></span>)
                 </h5>
-                <div th:replace="partials/resources-list :: resourceList(gold=180, iron=290, wood=540)"></div>
+
+                <div th:replace="partials/resources-list :: resourceList(
+                    gold=${buildingService.getGarrisonBuildingCost(empire).get('GOLD')},
+                    iron=${buildingService.getGarrisonBuildingCost(empire).get('IRON')},
+                    wood=${buildingService.getGarrisonBuildingCost(empire).get('WOOD')},
+                )">
+                </div>
             </div>
 
             <div class="container">
@@ -13,6 +19,10 @@
                     <div class="col p-2 d-flex flex-column justify-content-center align-items-center border">
                         <img th:src="@{/images/archer.svg}" width="50" alt=""/>
                         <span class="text-secondary">Archer</span>
+
+                        <div th:replace="units/collect-form :: collectForm(
+                            type=ARCHER,
+                            )"></div>
                     </div>
                     <div class="col p-2 d-flex flex-column justify-content-center align-items-center border">
                         <img th:src="@{/images/knight.svg}" width="50" alt=""/>
@@ -23,11 +33,11 @@
 
             <div class="text-center pt-2">
                 <div th:if="${empireService.getGarrisonBuildings(empire).getId() == null}">
-                    <div th:replace="buildings/building-form :: buildingForm(type=GARRISON)"></div>
+                    <div th:replace="buildings/building-form :: buildingForm(type=GARRISON, buttonText='Purchase')"></div>
                 </div>
 
                 <div th:unless="${empireService.getGarrisonBuildings(empire).getId() == null}">
-                    UPGRADE MEEEEE
+                    <div th:replace="buildings/building-form :: buildingForm(type=GARRISON, buttonText='Upgrade')"></div>
                 </div>
             </div>
         </div>

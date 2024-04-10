@@ -1,6 +1,7 @@
 package com.example.ImperiaConquest.Empire;
 
 import com.example.ImperiaConquest.Building.BuildingService;
+import com.example.ImperiaConquest.Building.BuildingsDTO;
 import com.example.ImperiaConquest.Mine.Mine;
 import com.example.ImperiaConquest.Mine.MineRepository;
 import com.example.ImperiaConquest.Mine.MineService;
@@ -8,6 +9,8 @@ import com.example.ImperiaConquest.User.MyUserDetails;
 import com.example.ImperiaConquest.User.User;
 import com.example.ImperiaConquest.User.UserRepository;
 import java.security.Principal;
+
+import com.example.ImperiaConquest.Utils.TimeHelpers;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,10 +64,16 @@ public class EmpireController {
         } else {
             Empire empire = this.empireService.getEmpireByUsername(principal.getName());
             String resource = "";
+
+            BuildingsDTO buildingsDTO = new BuildingsDTO(empire, empireService);
+
             model.addAttribute("empire", empire);
             model.addAttribute("mineBuy", new Mine());
             model.addAttribute("mineService", this.mineService);
             model.addAttribute("empireService", this.empireService);
+            model.addAttribute("buildingService", this.buildingService);
+            model.addAttribute("empireBuildings", buildingsDTO.getBuildings());
+
             return "empire/show";
         }
     }
