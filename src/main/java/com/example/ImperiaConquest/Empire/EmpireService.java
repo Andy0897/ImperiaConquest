@@ -45,7 +45,7 @@ public class EmpireService {
         return this.buildingService.getBarracksBuildingsByEmpire(empire).orElseGet(Building::new);
     }
 
-    public String saveEmpire(@ModelAttribute Empire empire, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myuserDetails) {
+    public String submitSaveEmpire(@ModelAttribute Empire empire, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myuserDetails) {
         if (bindingResult.hasErrors()) {
             return "empire/add";
         } else {
@@ -57,7 +57,7 @@ public class EmpireService {
         }
     }
 
-    private void setResources(Empire empire) {
+    public void setResources(Empire empire) {
         empire.setGold(100);
         empire.setIron(200);
         empire.setWood(400);
@@ -68,7 +68,7 @@ public class EmpireService {
         return this.empireRepository.getEmpireByUserId(user.getId());
     }
 
-    private void buyMine(Mine mine, Empire empire, String resource) {
+    public void buyMine(Mine mine, Empire empire, String resource) {
         this.payMine(empire, resource);
         empire.addMine(mine);
         this.mineRepository.save(mine);
@@ -86,7 +86,7 @@ public class EmpireService {
         return empire.getGold() >= gold && empire.getIron() >= iron && empire.getWood() >= wood;
     }
 
-    private void payMine(Empire empire, String resource) {
+    public void payMine(Empire empire, String resource) {
         if (resource.equals("gold")) {
             empire.setGold(empire.getGold() - 100);
         } else if (resource.equals("iron")) {
@@ -102,11 +102,10 @@ public class EmpireService {
         if (this.checkIfCanBuyMine(empire, resource)) {
             this.buyMine(mine, empire, resource);
         }
-
         return "redirect:/empire/show";
     }
 
-    private boolean checkIfCanBuyMine(Empire empire, String resource) {
+    public boolean checkIfCanBuyMine(Empire empire, String resource) {
         return resource.equals("gold") && empire.getGold() >= 100 || resource.equals("iron") && empire.getIron() >= 200 || resource.equals("wood") && empire.getWood() >= 400;
     }
 
@@ -120,5 +119,9 @@ public class EmpireService {
 
     public EmpireRepository getEmpireRepository() {
         return this.empireRepository;
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
     }
 }

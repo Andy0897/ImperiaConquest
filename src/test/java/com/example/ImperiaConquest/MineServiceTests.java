@@ -5,8 +5,6 @@ import static org.mockito.Mockito.*;
 
 import com.example.ImperiaConquest.Empire.*;
 import com.example.ImperiaConquest.Mine.*;
-import jakarta.validation.constraints.Min;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,16 +17,16 @@ import org.springframework.ui.Model;
 import java.time.LocalDateTime;
 
 @ExtendWith(MockitoExtension.class)
-public class MineServiceTest {
+public class MineServiceTests {
+
+    @InjectMocks
+    MineService mineService;
 
     @Mock
     EmpireService empireService;
 
     @Mock
     MineRepository mineRepository;
-
-    @InjectMocks
-    MineService mineService;
 
     @Mock
     Model model;

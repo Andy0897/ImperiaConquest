@@ -53,7 +53,7 @@ public class EmpireController {
 
     @PostMapping({"/save"})
     public String saveEmpire(@ModelAttribute Empire empire, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myuserDetails, Principal principal) {
-        return this.empireService.saveEmpire(empire, bindingResult, myuserDetails);
+        return this.empireService.submitSaveEmpire(empire, bindingResult, myuserDetails);
     }
 
 

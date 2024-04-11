@@ -4,7 +4,8 @@
 <body>
 <h1 class="page-title">Players</h1>
 
-<table class="bordered-table">
+<table class="table table-bordered">
+    <thead class="thead-dark">
     <tr>
         <th>Empire</th>
         <th>Wins</th>
@@ -13,14 +14,17 @@
         <th>Wood</th>
         <th>Action</th>
     </tr>
+    </thead>
+    <tbody>
     <tr th:each="empire:${empires}">
         <td th:text="${empire.getName()}"></td>
         <td th:text="${empireService.getEmpireWins(empire)}"></td>
         <td th:text="${empire.getGold()}"></td>
         <td th:text="${empire.getIron()}"></td>
         <td th:text="${empire.getWood()}"></td>
-        <td><a class="btn" href="#">Attack</a></td>
+        <td><a class="btn btn-primary" href="#">Attack</a></td>
     </tr>
+    </tbody>
 </table>
 </body>
 </html>
