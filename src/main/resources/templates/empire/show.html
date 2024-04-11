@@ -25,6 +25,8 @@
             </div>
         </div>
         <div class="col-md-8">
+             <div th:replace="messages/message"></div>
+
             <div class="alert alert-danger" role="alert" th:if="${warningMessage}">
                 <span th:text="${warningMessage}"></span>
             </div>

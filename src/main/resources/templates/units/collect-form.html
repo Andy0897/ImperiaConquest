@@ -1,9 +1,28 @@
-<form th:action="@{/building/save}" method="post" th:fragment="collectForm(type)">
-<!--    <input type="hidden" name="type" th:value="${type}"/>-->
-<!--    <input type="hidden" name="empire_id" th:value="${empire.getId()}"/>-->
-<!--    <button class="btn btn-outline-success" type="submit" th:text="${buttonText}"></button>-->
-    Collect meeee mamaaa
-</form>
+<!--/*@thymesVar id="timeHelpers" type="com.example.ImperiaConquest.Utils.TimeHelpers"*/-->
+<!--/*@thymesVar id="building" type="com.example.ImperiaConquest.Building.Building"*/-->
+
+<div th:fragment="collectForm(type, building)">
+    <div th:if="${building.getId() != null}">
+
+        <div th:if="${timeHelpers.canCollect(building.getCollected_at())}">
+            <form th:action="@{/unit/save}" method="post">
+                <input type="hidden" name="type" th:value="${type}"/>
+                <input type="hidden" name="empire_id" th:value="${empire.getId()}"/>
+                <input type="hidden" name="building_id" th:value="${building.getId()}"/>
+                <button class="btn btn-outline-success" type="submit">Train</button>
+            </form>
+        </div>
+
+        <div th:unless="${timeHelpers.canCollect(building.getCollected_at())}">
+            <span th:text="'Available in ' + ${timeHelpers.calculateMinutesRemaining(building.getCollected_at())} + ' min'"></span>
+        </div>
+    </div>
+
+    <div th:unless="${building.getId() != null}">
+        <span>Building not purchased</span>
+    </div>
+</div>
+
 
 
 

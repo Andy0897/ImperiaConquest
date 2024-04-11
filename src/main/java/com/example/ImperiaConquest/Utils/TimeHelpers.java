@@ -19,6 +19,10 @@ public class TimeHelpers {
     }
 
     public boolean canCollect(LocalDateTime lastCollected) {
-        return calculateHoursDifference(lastCollected) <= 1;
+
+        if (lastCollected == null) {
+            return false;
+        }
+        return calculateHoursDifference(lastCollected) >= 1;
     }
 }

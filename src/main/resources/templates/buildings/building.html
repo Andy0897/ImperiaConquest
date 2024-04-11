@@ -1,0 +1,69 @@
+<!--/*@thymesVar id="buildingStructure" type="com.example.ImperiaConquest.Interfaces.BuildingStructureInterface"*/-->
+<div th:fragment="building(buildingStructure)">
+    <div class="" style="">
+        <div class="">
+            <div class="row">
+                <div class="d-flex gap-1 align-items-center mb-2 rounded py-2" style="background: #eee;">
+                    <h5>
+                        <span th:text="${buildingStructure.getName()}"></span>
+                        (Level: <span th:text="${buildingStructure.getBuilding().getLevel()}"></span>)
+                    </h5>
+                    <div th:replace="partials/resources-list :: resourceList(
+                    gold=${buildingStructure.getBuildingGoldCost()},
+                    iron=${buildingStructure.getBuildingIronCost()},
+                    wood=${buildingStructure.getBuildingWoodCost()}
+                )">
+                    </div>
+
+                    <div class="">
+                        <div th:if="${buildingStructure.exists() == false}">
+                            <div th:replace="buildings/building-form :: buildingForm(type=${buildingStructure.getType()}, buttonText='Purchase')"></div>
+                        </div>
+
+                        <div th:unless="${buildingStructure.exists() == false}">
+                            <div th:replace="buildings/building-form :: buildingForm(type=${buildingStructure.getType()}, buttonText='Upgrade')"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">☠️</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">❤️ Health</th>
+                            <th scope="col">⚔️ Attack</th>
+                            <th scope="col">💪 Training</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="unit : ${buildingStructure.getUnits()}">
+                            <th scope="row">
+                                <img th:src="@{${unit.value.getImage()}}" width="40" alt=""/>
+                            </th>
+                            <td th:text="${unit.value.getName()}"></td>
+                            <td th:text="${unit.value.getHealth()}"></td>
+                            <!--/*@thymesVar id="unitService" type="com.example.ImperiaConquest.Unit.UnitService"*/-->
+                            <td th:text="${unit.value.getAttack()}"></td>
+                            <td>
+                                <span th:if="${timeHelpers.canCollect(buildingStructure.getBuilding().getCollected_at())}"
+                                      th:text="${unitService.calculateUnitsPerHour(buildingStructure.getBuilding(), unit.value.getType())}"></span>
+                                <span th:unless="${timeHelpers.canCollect(buildingStructure.getBuilding().getCollected_at())}">⏳</span>
+                            </td>
+                            <td>
+                                <div th:replace="units/collect-form :: collectForm(
+                                    type=${unit.value.getType()},
+                                    building=${buildingStructure.getBuilding()}
+                                    )">
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

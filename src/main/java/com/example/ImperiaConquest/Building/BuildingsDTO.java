@@ -1,24 +1,27 @@
 package com.example.ImperiaConquest.Building;
 
+import com.example.ImperiaConquest.Building.Structures.Barracks;
+import com.example.ImperiaConquest.Building.Structures.Garrison;
+import com.example.ImperiaConquest.Building.Structures.Quarters;
 import com.example.ImperiaConquest.Empire.Empire;
 import com.example.ImperiaConquest.Empire.EmpireService;
 import com.example.ImperiaConquest.Enums.BuildingTypes;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.ImperiaConquest.Interfaces.BuildingStructureInterface;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class BuildingsDTO {
 
     public Empire empire;
-
-    @Autowired
     EmpireService empireService;
     BuildingService buildingService;
 
-    @Autowired
-    public BuildingsDTO(Empire empire, EmpireService empireService) {
+    public BuildingsDTO(Empire empire, EmpireService empireService, BuildingService buildingService) {
         this.empire = empire;
         this.empireService = empireService;
+        this.buildingService = buildingService;
     }
 
     public HashMap<String, Building> getBuildings() {
@@ -29,5 +32,11 @@ public class BuildingsDTO {
         return buildings;
     }
 
-    ;
+    public Map<String, BuildingStructureInterface> getBuildingStructures() {
+        Map<String, BuildingStructureInterface> buildingStructures = new LinkedHashMap<>();
+        buildingStructures.put(BuildingTypes.GARRISON.name(), new Garrison(empire, buildingService));
+        buildingStructures.put(BuildingTypes.QUARTERS.name(), new Quarters(empire, buildingService));
+        buildingStructures.put(BuildingTypes.BARRACKS.name(), new Barracks(empire, buildingService));
+        return buildingStructures;
+    }
 }

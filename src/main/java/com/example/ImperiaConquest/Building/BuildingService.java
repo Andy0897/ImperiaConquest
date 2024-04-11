@@ -2,24 +2,30 @@ package com.example.ImperiaConquest.Building;
 
 import com.example.ImperiaConquest.Empire.Empire;
 import com.example.ImperiaConquest.Enums.BuildingTypes;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-
+import com.example.ImperiaConquest.Unit.UnitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Optional;
 
 @Service
 public class BuildingService {
     @Autowired
     BuildingRepository buildingRepository;
 
+    @Autowired
+    UnitRepository unitRepository;
+
     public BuildingService() {
     }
 
     public BuildingRepository getBuildingRepository() {
         return this.buildingRepository;
+    }
+
+    public UnitRepository getUnitRepository() {
+        return this.unitRepository;
     }
 
     public Building getEmpireBuildingByType(Empire empire, String type) {

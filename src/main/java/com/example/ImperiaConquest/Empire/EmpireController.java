@@ -5,22 +5,19 @@ import com.example.ImperiaConquest.Building.BuildingsDTO;
 import com.example.ImperiaConquest.Mine.Mine;
 import com.example.ImperiaConquest.Mine.MineRepository;
 import com.example.ImperiaConquest.Mine.MineService;
+import com.example.ImperiaConquest.Unit.UnitService;
 import com.example.ImperiaConquest.User.MyUserDetails;
 import com.example.ImperiaConquest.User.User;
 import com.example.ImperiaConquest.User.UserRepository;
-import java.security.Principal;
-
 import com.example.ImperiaConquest.Utils.TimeHelpers;
+import org.hibernate.annotations.AttributeAccessor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @Controller
 @RequestMapping({"/empire"})
@@ -31,14 +28,16 @@ public class EmpireController {
     MineService mineService;
     MineRepository mineRepository;
     BuildingService buildingService;
+    UnitService unitService;
 
-    public EmpireController(UserRepository userRepository, EmpireService empireService, EmpireRepository empireRepository, MineService mineService, MineRepository mineRepository, BuildingService buildingService) {
+    public EmpireController(UserRepository userRepository, EmpireService empireService, EmpireRepository empireRepository, MineService mineService, MineRepository mineRepository, BuildingService buildingService, UnitService unitService) {
         this.userRepository = userRepository;
         this.empireService = empireService;
         this.empireRepository = empireRepository;
         this.mineService = mineService;
         this.mineRepository = mineRepository;
         this.buildingService = buildingService;
+        this.unitService = unitService;
     }
 
     @GetMapping({"/add"})
@@ -57,6 +56,9 @@ public class EmpireController {
         return this.empireService.saveEmpire(empire, bindingResult, myuserDetails);
     }
 
+
+    @AttributeAccessor
+
     @GetMapping({"/show"})
     public String showEmpire(Model model, Principal principal) {
         if (this.empireService.getEmpireByUsername(principal.getName()) == null) {
@@ -65,14 +67,17 @@ public class EmpireController {
             Empire empire = this.empireService.getEmpireByUsername(principal.getName());
             String resource = "";
 
-            BuildingsDTO buildingsDTO = new BuildingsDTO(empire, empireService);
+            BuildingsDTO buildingsDTO = new BuildingsDTO(empire, empireService, buildingService);
 
             model.addAttribute("empire", empire);
             model.addAttribute("mineBuy", new Mine());
             model.addAttribute("mineService", this.mineService);
             model.addAttribute("empireService", this.empireService);
             model.addAttribute("buildingService", this.buildingService);
+            model.addAttribute("unitService", this.unitService);
             model.addAttribute("empireBuildings", buildingsDTO.getBuildings());
+            model.addAttribute("buildingStructures", buildingsDTO.getBuildingStructures());
+            model.addAttribute("timeHelpers", new TimeHelpers());
 
             return "empire/show";
         }

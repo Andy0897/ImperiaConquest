@@ -66,6 +66,8 @@ public class BuildingController {
                     buildingCost.get(ResourceTypes.WOOD.name())
             );
 
+            redirectAttributes.addFlashAttribute("message", "Building Completed");
+            redirectAttributes.addFlashAttribute("messageClass", "alert-primary");
             return "redirect:/empire/show";
         }
     }

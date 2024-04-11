@@ -34,15 +34,15 @@ public class EmpireService {
     }
 
     public Building getGarrisonBuildings(Empire empire) {
-        return (Building) this.buildingService.getGarrisonBuildingsByEmpire(empire).orElseGet(Building::new);
+        return this.buildingService.getGarrisonBuildingsByEmpire(empire).orElseGet(Building::new);
     }
 
     public Building getQuartersBuildings(Empire empire) {
-        return (Building)this.buildingService.getQuartersBuildingsByEmpire(empire).orElseGet(Building::new);
+        return this.buildingService.getQuartersBuildingsByEmpire(empire).orElseGet(Building::new);
     }
 
     public Building getBarracksBuildings(Empire empire) {
-        return (Building)this.buildingService.getBarracksBuildingsByEmpire(empire).orElseGet(Building::new);
+        return this.buildingService.getBarracksBuildingsByEmpire(empire).orElseGet(Building::new);
     }
 
     public String saveEmpire(@ModelAttribute Empire empire, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myuserDetails) {
@@ -115,7 +115,7 @@ public class EmpireService {
     }
 
     public Long getEmpireWins(Empire empire) {
-        return (long)empire.getWins().size();
+        return (long) empire.getWins().size();
     }
 
     public EmpireRepository getEmpireRepository() {

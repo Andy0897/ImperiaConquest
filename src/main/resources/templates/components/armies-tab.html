@@ -1,7 +1,10 @@
-<div class="container" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="container">
     <div class="row gap-3 justify-content-center">
-    <div th:replace="buildings/garrison.html"></div>
-        <div th:replace="buildings/quarters.html"></div>
-        <div th:replace="buildings/barracks.html"></div>
+        <div th:each="buildingStructure: ${buildingStructures}">
+            <div th:replace="buildings/building :: building(
+                            buildingStructure=${buildingStructure.value}
+                            )">
+            </div>
+        </div>
     </div>
 </div>

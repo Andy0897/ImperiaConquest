@@ -20,6 +20,7 @@ public class Unit {
     private int health;
     private int defending;
     private int attacking;
+    private int count;
 
     @ManyToOne
     @JoinColumn(name = "empire_id")
@@ -28,6 +29,8 @@ public class Unit {
     @ManyToOne
     @JoinColumn(name = "building_id")
     private Building building;
+
+    public Unit() {}
 
 
     public Long getId() {
@@ -84,5 +87,21 @@ public class Unit {
 
     public void setEmpire(Empire empire) {
         this.empire = empire;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
     }
 }

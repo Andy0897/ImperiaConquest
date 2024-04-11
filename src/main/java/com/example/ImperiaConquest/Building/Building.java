@@ -11,30 +11,31 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(
-    name = "buildings",
-    uniqueConstraints = {@UniqueConstraint(
-    columnNames = {"empire_id", "type"}
-)}
+        name = "buildings",
+        uniqueConstraints = {@UniqueConstraint(
+                columnNames = {"empire_id", "type"}
+        )}
 )
 public class Building {
     @Id
     @GeneratedValue(
-        strategy = GenerationType.AUTO
+            strategy = GenerationType.AUTO
     )
     private Long id;
     private String type;
     private Long level;
     @ManyToOne
     @JoinColumn(
-        name = "empire_id"
+            name = "empire_id"
     )
     private Empire empire;
     @Column(
-        name = "collected_at"
+            name = "collected_at"
     )
     private LocalDateTime collected_at;
 
