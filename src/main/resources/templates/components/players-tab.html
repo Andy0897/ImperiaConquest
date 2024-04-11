@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="card bg-light text-center p-3">
+        <h1 class="page-title">Players</h1>
+    </div>
+    <div class="card bg-light text-center p-3 mt-3" th:if="${#lists.isEmpty(empires) == false}">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Empire</th>
+                <th>Wins</th>
+                <th>Gold</th>
+                <th>Iron</th>
+                <th>Wood</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="empire:${empires}">
+                    <td th:text="${empire.getName()}"></td>
+                    <td th:text="${empireService.getEmpireWins(empire)}"></td>
+                    <td th:text="${empire.getGold()}"></td>
+                    <td th:text="${empire.getIron()}"></td>
+                    <td th:text="${empire.getWood()}"></td>
+                    <td><a class="btn btn-outline-success" href="#">Attack</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(empires)}">
+        <div class="alert alert-warning mt-3" role="alert">
+            <p class="mb-0">You still don't have opponents</p>
+        </div>
+    </div>
+</div>

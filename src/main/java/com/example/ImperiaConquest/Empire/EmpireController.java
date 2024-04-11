@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping({"/empire"})
@@ -69,6 +70,14 @@ public class EmpireController {
 
             BuildingsDTO buildingsDTO = new BuildingsDTO(empire, empireService, buildingService);
 
+            User user = userRepository.getUserByUsername(principal.getName());
+
+            Empire userEmpire = empireRepository.getEmpireByUserId(user.getId());
+
+            List<Empire> otherEmpires = empireRepository.findAllByIdNot(userEmpire.getId());
+
+            model.addAttribute("empires", otherEmpires);
+            model.addAttribute("empireService", empireService);
             model.addAttribute("empire", empire);
             model.addAttribute("mineBuy", new Mine());
             model.addAttribute("mineService", this.mineService);
