@@ -16,54 +16,42 @@ public class BuildingCostCalculator {
         buildingType = BuildingTypes.valueOf(type.toUpperCase());
     }
 
-    public HashMap<String, Integer> getBuildingType() {
-        return switch (buildingType) {
-            case BARRACKS -> initialBarracksValues();
-            case GARRISON -> initialQuartersValues();
-            case QUARTERS -> initialGarrisonValues();
-            default -> new HashMap<String, Integer>();
-        };
-    }
-
     public HashMap<String, Integer> calculate() {
-        HashMap<String, Integer> resourcesByType = getBuildingType();
 
-
-        for (Map.Entry<String, Integer> entry : resourcesByType.entrySet()) {
-            String key = entry.getKey();
-            int value = entry.getValue();
-
-            //TODO: Maybe increase in steps instead of linear
-            int newValue = value * (buildingLevel + 1);
-            resourcesByType.put(key, newValue);
+        if (buildingType == BuildingTypes.BARRACKS) {
+            return barracksValue();
+        } else if (buildingType == BuildingTypes.GARRISON) {
+            return garrisonValues();
+        } else if (buildingType == BuildingTypes.QUARTERS) {
+            return quarterValues();
+        } else {
+            return new HashMap<String, Integer>();
         }
-
-        return resourcesByType;
     }
 
-    public static HashMap<String, Integer> initialGarrisonValues() {
+    public HashMap<String, Integer> garrisonValues() {
         HashMap<String, Integer> initialValues = new HashMap<String, Integer>();
-        initialValues.put(ResourceTypes.GOLD.name(), 180);
-        initialValues.put(ResourceTypes.IRON.name(), 290);
-        initialValues.put(ResourceTypes.WOOD.name(), 540);
+        initialValues.put(ResourceTypes.GOLD.name(), 180 * (buildingLevel + 1));
+        initialValues.put(ResourceTypes.IRON.name(), 290 * (buildingLevel + 1));
+        initialValues.put(ResourceTypes.WOOD.name(), 540 * (buildingLevel + 1));
 
         return initialValues;
     }
 
-    public static HashMap<String, Integer> initialQuartersValues() {
+    public HashMap<String, Integer> quarterValues() {
         HashMap<String, Integer> initialValues = new HashMap<String, Integer>();
-        initialValues.put(ResourceTypes.GOLD.name(), 700);
-        initialValues.put(ResourceTypes.IRON.name(), 540);
-        initialValues.put(ResourceTypes.WOOD.name(), 860);
+        initialValues.put(ResourceTypes.GOLD.name(), 700 * (buildingLevel + 1));
+        initialValues.put(ResourceTypes.IRON.name(), 540 * (buildingLevel + 1));
+        initialValues.put(ResourceTypes.WOOD.name(), 860 * (buildingLevel + 1));
 
         return initialValues;
     }
 
-    public static HashMap<String, Integer> initialBarracksValues() {
+    public HashMap<String, Integer> barracksValue() {
         HashMap<String, Integer> initialValues = new HashMap<String, Integer>();
-        initialValues.put(ResourceTypes.GOLD.name(), 1500);
-        initialValues.put(ResourceTypes.IRON.name(), 1800);
-        initialValues.put(ResourceTypes.WOOD.name(), 3800);
+        initialValues.put(ResourceTypes.GOLD.name(), 1500 * (buildingLevel + 1));
+        initialValues.put(ResourceTypes.IRON.name(), 1800 * (buildingLevel + 1));
+        initialValues.put(ResourceTypes.WOOD.name(), 3800 * (buildingLevel + 1));
 
         return initialValues;
     }

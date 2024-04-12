@@ -36,7 +36,6 @@ public class UnitService {
         unitsCountGeneratedPerHour.put(UnitTypes.NINJA.name(), 3);
         unitsCountGeneratedPerHour.put(UnitTypes.VIKING.name(), 2);
     }
-
     public Integer generatedUnitsPerHour(String unitName) {
         return this.unitsCountGeneratedPerHour.get(unitName);
     }
