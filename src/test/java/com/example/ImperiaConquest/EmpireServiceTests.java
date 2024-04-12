@@ -9,10 +9,8 @@ import com.example.ImperiaConquest.Mine.*;
 import com.example.ImperiaConquest.User.MyUserDetails;
 import com.example.ImperiaConquest.User.User;
 import com.example.ImperiaConquest.User.UserRepository;
-import jakarta.validation.constraints.Min;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestClassOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -78,7 +76,7 @@ public class EmpireServiceTests {
         Empire empire = mock(Empire.class);
         MyUserDetails myuserDetails = mock(MyUserDetails.class);
         when(bindingResult.hasErrors()).thenReturn(false);
-        String result = empireService.submitSaveEmpire(empire, bindingResult, myuserDetails);
+        String result = empireService.submitSaveEmpire(empire, bindingResult, myuserDetails, model);
         assertEquals("redirect:/empire/add", result);
     }
 
@@ -87,7 +85,7 @@ public class EmpireServiceTests {
         Empire empire = mock(Empire.class);
         MyUserDetails myuserDetails = mock(MyUserDetails.class);
         when(bindingResult.hasErrors()).thenReturn(true);
-        String result = empireService.submitSaveEmpire(empire, bindingResult, myuserDetails);
+        String result = empireService.submitSaveEmpire(empire, bindingResult, myuserDetails, model);
         assertEquals("empire/add", result);
     }
 
@@ -161,7 +159,7 @@ public class EmpireServiceTests {
     void testSubmitBuyMine() {
         Empire empire = new Empire();
         Mine mine = new Mine();
-        String result = empireService.submitBuyMine(empire, mine, "gold", model);
+        String result = empireService.submitBuyMine(empire, mine, "gold");
         assertEquals("redirect:/empire/show", result);
     }
 

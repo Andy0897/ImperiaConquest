@@ -45,8 +45,9 @@ public class EmpireService {
         return this.buildingService.getBarracksBuildingsByEmpire(empire).orElseGet(Building::new);
     }
 
-    public String submitSaveEmpire(@ModelAttribute Empire empire, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myuserDetails) {
+    public String submitSaveEmpire(Empire empire, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myuserDetails, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("empire", empire);
             return "empire/add";
         } else {
             User user = this.userRepository.getUserByUsername(myuserDetails.getUsername());
@@ -98,7 +99,7 @@ public class EmpireService {
         this.updateEmpire(empire);
     }
 
-    public String submitBuyMine(Empire empire, Mine mine, String resource, Model model) {
+    public String submitBuyMine(Empire empire, Mine mine, String resource) {
         if (this.checkIfCanBuyMine(empire, resource)) {
             this.buyMine(mine, empire, resource);
         }

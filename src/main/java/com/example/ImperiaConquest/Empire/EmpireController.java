@@ -10,6 +10,7 @@ import com.example.ImperiaConquest.User.MyUserDetails;
 import com.example.ImperiaConquest.User.User;
 import com.example.ImperiaConquest.User.UserRepository;
 import com.example.ImperiaConquest.Utils.TimeHelpers;
+import jakarta.validation.Valid;
 import org.hibernate.annotations.AttributeAccessor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -53,8 +54,8 @@ public class EmpireController {
     }
 
     @PostMapping({"/save"})
-    public String saveEmpire(@ModelAttribute Empire empire, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myuserDetails, Principal principal) {
-        return this.empireService.submitSaveEmpire(empire, bindingResult, myuserDetails);
+    public String saveEmpire(@ModelAttribute @Valid Empire empire, BindingResult bindingResult, @AuthenticationPrincipal MyUserDetails myuserDetails, Principal principal, Model model) {
+        return this.empireService.submitSaveEmpire(empire, bindingResult, myuserDetails, model);
     }
 
 
@@ -93,11 +94,11 @@ public class EmpireController {
     }
 
     @PostMapping({"/buy-mine/{resource}"})
-    public String submitBuyMine(@PathVariable("resource") String resource, Mine mine, Model model, Principal principal) {
+    public String submitBuyMine(@PathVariable("resource") String resource, Mine mine, Principal principal) {
         mine = this.mineService.setUpMine(mine);
         User user = this.userRepository.getUserByUsername(principal.getName());
         Empire empire = this.empireRepository.getEmpireByUserId(user.getId());
-        return this.empireService.submitBuyMine(empire, mine, resource, model);
+        return this.empireService.submitBuyMine(empire, mine, resource);
     }
 
     @PostMapping({"/submit-mining/{resource}"})

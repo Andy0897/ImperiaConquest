@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="partials/head"></head>
 <body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
+<nav th:insert="@{fragments/navbar}"></nav>
 <div class="container">
     <div class="container row" style="margin-top: 40px;">
         <h1 class="page-title" th:text="${empire.name}" style="color: white"></h1>

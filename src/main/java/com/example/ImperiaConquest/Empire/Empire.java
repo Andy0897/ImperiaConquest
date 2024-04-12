@@ -16,6 +16,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 import java.util.List;
 
 @Entity
@@ -36,6 +39,9 @@ public class Empire {
         name = "user_id"
     )
     private User user;
+    @NotEmpty(message = "This field can't be empty")
+    @Size(min = 6, message = "Size must be greater than 6")
+    @Size(max = 16, message = "Size must be smaller than 16")
     private String name;
     @OneToMany
     private List<Mine> mines;

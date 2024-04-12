@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -13,12 +14,12 @@ public class UserService {
     private UserRepository userRepository;
     private UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, UserMapper userMapping) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
-        this.userMapper = userMapping;
+        this.userMapper = userMapper;
     }
 
-    public String submitUser(@Valid UserDTO userDTO, BindingResult bindingResult, Model model) {
+    public String submitUser(UserDTO userDTO, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors() || !comparePasswords(userDTO.getPassword(), userDTO.getRepeatPassword()) || checkIfExistsUserByUsername(userDTO.getUsername()) || checkIfExistsUserByEmail(userDTO.getEmail())) {
             model.addAttribute("user", userDTO);
             model.addAttribute("existsUserByUsername", checkIfExistsUserByUsername(userDTO.getUsername()));
