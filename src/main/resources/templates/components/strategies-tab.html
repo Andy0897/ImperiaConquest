@@ -1,0 +1,46 @@
+<div class="card bg-light p-3">
+    <div class="container">
+        <div class="card bg-light text-center p-2">
+            <h4 class="page-title mb-0">Stats</h4>
+        </div>
+        <div class="card bg-light text-center p-3 mt-3">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                <tr>
+                    <th>👀 Unit</th>
+                    <th>⚔️ Attack</th>
+                    <th>❤️ Health</th>
+                    <th># Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="unit : ${unitService.getUnitsByEmpire(empire)}">
+                    <!--/*@thymesVar id="unit" type="com.example.ImperiaConquest.Interfaces.UnitInterface"*/-->
+                    <td>
+                        <img th:src="@{${unit.getImage()}}" width="20" alt=""/>
+                        <span th:text="${unit.getName()}"></span>
+                    </td>
+
+                    <td>
+                        <span th:text="${unit.getAttack()}"></span>
+                    </td>
+
+                    <td>
+                        <span th:text="${unit.getHealth()}"></span>
+                    </td>
+
+                    <td>
+                        <span th:text="${unit.getCount()}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(empires)}">
+            <div class="alert alert-warning mt-3" role="alert">
+                <p class="mb-0">You still don't have opponents</p>
+            </div>
+        </div>
+    </div>
+</div>
+

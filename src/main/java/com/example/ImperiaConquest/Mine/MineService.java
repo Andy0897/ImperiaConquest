@@ -22,6 +22,10 @@ public class MineService {
         this.mineRepository = mineRepository;
     }
 
+    public MineRepository getMineRepository() {
+        return mineRepository;
+    }
+
     public Mine setUpMine(Mine mine) {
         Faker faker = new Faker();
         mine.setGoldMiningCapacity(80);

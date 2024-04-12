@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="card bg-light text-center p-2">
+        <h4 class="page-title mb-0">History</h4>
+    </div>
+    <div class="card bg-light text-center p-3 mt-3">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Winner</th>
+                <th>Attacker</th>
+                <th>Defender</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="battleHistory:${battleService.getBattleHistoryForEmpire(empire)}">
+                <td th:class="${battleHistory.getWinner().getId() == empire.getId() ? 'bg-success' : 'bg-danger' }"
+                    th:text="${battleHistory.getWinner().getName()}"
+                ></td>
+                <td th:text="${battleHistory.getAttacker().getName()}"></td>
+                <td th:text="${battleHistory.getDefender().getName()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

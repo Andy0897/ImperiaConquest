@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="partials/head"></head>
+
+<body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
+
+
+<div class="container">
+    <div class="container row" style="margin-top: 40px;">
+        <h1 class="page-title" th:text="${empire.name}" style="color: white"></h1>
+        <div class="col">
+            <div class="card bg-light text-center p-3">
+                <h2>Resources</h2>
+                <div class="row">
+                    <div class="col">
+                        <img th:src="@{/images/gold.svg}" width="30" alt=""/>
+                        <span th:text="${empire.gold}"></span>
+                    </div>
+                    <div class="col">
+                        <img th:src="@{/images/iron.svg}" width="30" alt=""/>
+                        <span th:text="${empire.iron}"></span>
+                    </div>
+                    <div class="col">
+                        <img th:src="@{/images/wood.svg}" width="30" alt=""/>
+                        <span th:text="${empire.wood}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div th:replace="messages/message"></div>
+        </div>
+        <div class="col-md-8">
+            <div class="alert alert-danger" role="alert" th:if="${warningMessage}">
+                <span th:text="${warningMessage}"></span>
+            </div>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane show active fade" id="nav-stats" role="tabpanel">
+                    <div class="card bg-light p-3">
+
+
+                        <form th:action="@{/battle/start}" id="battle-form" method="POST">
+
+                            <input type="hidden" name="defending_empire_id" th:value="${defendingEmpire.getId()}" >
+                            <div class="container">
+                                <div class="card bg-light text-center p-2">
+                                    <h4 class="page-title">Battle Preparations</h4>
+                                </div>
+
+                                <div class="controls my-2 d-flex justify-content-center gap-2">
+                                    <button onclick="return setInputValues('battle-form', 25)" class="btn  text-white bg-primary">25%</button>
+                                    <button onclick="return setInputValues('battle-form', 50)" class="btn  text-white bg-primary">50%</button>
+                                    <button onclick="return setInputValues('battle-form', 100)" class="btn text-white  bg-primary">100%</button>
+                                </div>
+                                <!--/*@thymesVar id="unit" type="com.example.ImperiaConquest.Unit.Structures.UnitItem"*/-->
+                                <div class="card bg-light text-center p-3 mt-3" th:each="unit : ${troops}">
+
+                                    <div class="stats bg-gray d-flex gap-2">
+                                        <h5>
+                                            <img th:src="@{${unit.getImage()}}" width="20" alt=""/>
+                                            <span th:text="${unit.getName()}"></span>
+                                        </h5>
+                                        <div>
+                                            #
+                                            <span th:text="${unit.getCount()}"></span>
+                                        </div>
+
+                                        <div>
+                                            ❤️
+                                            <span th:text="${unit.getHealth()}"></span>
+                                        </div>
+                                        <div>
+                                            ⚔️
+                                            <span th:text="${unit.getAttack()}"></span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="troops-number">
+                                        <label th:for="'slider-' + ${unit.unit.getId()}" class="form-label text-start d-block">
+                                            Number of troops to send to battle:
+                                            <span class="p-2 bg-primary text-white rounded" th:id="'slider-selected-value-'+${unit.unit.getId()}">0</span>
+                                        </label>
+                                        <div class="d-flex gap-1">
+                                            <span class="start">0</span>
+                                            <input type="range"
+                                                   value=0
+                                                   min=0
+                                                   th:max="${unit.getCount()}"
+                                                   class="form-range"
+                                                   th:id="'slider-' + ${unit.unit.getId()}"
+                                                   th:name="${unit.getType()}"
+                                            >
+                                            <span class="end" th:text="${unit.getCount()}"></span>
+                                        </div>
+
+                                        <script th:inline="javascript">
+
+                                            (function () {
+                                                /*<![CDATA[*/
+                                                let sliderInput = document.getElementById(`slider-[[${unit.unit.getId()}]]`)
+                                                let sliderSelectedValue = document.getElementById(`slider-selected-value-[[${unit.unit.getId()}]]`)
+                                                /*]]>*/
+
+                                                sliderInput.addEventListener("input", (event) => {
+                                                    sliderSelectedValue.textContent = event.target.value
+                                                });
+                                            })()
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="actions d-flex justify-content-center">
+                                <button type="submit" class="mt-2  center bg-danger py-2 px-4 border-0 text-white font-bold rounded">GO TO BATTLE</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function setInputValues(formId, percentage) {
+        let form = document.getElementById(formId);
+
+        form.querySelectorAll(`input[type="range"]`).forEach((input) => {
+            let max = input.max;
+
+            input.value = Math.round((max / 100) * percentage);
+            input.dispatchEvent(new Event('input'));
+        })
+
+        return false;
+    }
+</script>
+
+</body>
+</html>

@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="partials/head"></head>
 <body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
+<nav th:insert="@{fragments/navbar}"></nav>
 <div class="container">
     <div class="container row" style="margin-top: 40px;">
         <h1 class="page-title" th:text="${empire.name}" style="color: white"></h1>
@@ -23,34 +24,39 @@
                     </div>
                 </div>
             </div>
+
+            <div th:replace="messages/message"></div>
         </div>
         <div class="col-md-8">
-            <div th:replace="messages/message"></div>
-
             <div class="alert alert-danger" role="alert" th:if="${warningMessage}">
                 <span th:text="${warningMessage}"></span>
             </div>
 
             <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link bg-light link-success" id="nav-home-tab" data-bs-toggle="tab"
+                <div class="nav nav-tabs gap-1" id="nav-tab" role="tablist">
+                    <button class="nav-link text-black bg-light" id="nav-home-tab" data-bs-toggle="tab"
                             data-bs-target="#nav-home"
                             type="button">Mines
                     </button>
 
-                    <button class="nav-link active bg-light link-success" id="nav-armies-tab" data-bs-toggle="tab"
+                    <button class="nav-link text-black bg-light active" id="nav-armies-tab" data-bs-toggle="tab"
                             data-bs-target="#nav-armies"
                             type="button">Armies
                     </button>
 
-                    <button class="nav-link bg-light link-success" id="nav-strategies-tab" data-bs-toggle="tab"
-                            data-bs-target="#nav-strategies"
-                            type="button">Strategies
+                    <button class="nav-link text-black bg-light" id="nav-stats-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-stats"
+                            type="button">Stats
                     </button>
 
-                    <button class="nav-link bg-light link-success" id="nav-attack-tab" data-bs-toggle="tab"
-                            data-bs-target="#nav-attack"
-                            type="button">Attack
+                    <button class="nav-link text-black bg-light" id="nav-battle-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-battle"
+                            type="button">Battle
+                    </button>
+
+                    <button class="nav-link text-black bg-light" id="nav-history-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-history"
+                            type="button">History
                     </button>
                 </div>
             </nav>
@@ -66,13 +72,22 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="nav-strategies" role="tabpanel">
-                    Coming Soon
+                <div class="tab-pane fade" id="nav-stats" role="tabpanel">
+                    <div th:replace="components/strategies-tab"></div>
                 </div>
 
-                <div class="tab-pane fade" id="nav-attack" role="tabpanel">
-                    Coming Soon
+                <div class="tab-pane fade" id="nav-battle" role="tabpanel">
+                    <div class="card bg-light p-3">
+                        <div th:replace="components/players-tab"></div>
+                    </div>
                 </div>
+
+                <div class="tab-pane fade" id="nav-history" role="tabpanel">
+                    <div class="card bg-light p-3">
+                        <div th:replace="components/history-tab"></div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

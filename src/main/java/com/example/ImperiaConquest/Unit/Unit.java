@@ -16,10 +16,6 @@ public class Unit {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String type;
-    private int attack;
-    private int health;
-    private int defending;
-    private int attacking;
     private int count;
 
     @ManyToOne
@@ -30,8 +26,8 @@ public class Unit {
     @JoinColumn(name = "building_id")
     private Building building;
 
-    public Unit() {}
-
+    public Unit() {
+    }
 
     public Long getId() {
         return id;
@@ -47,38 +43,6 @@ public class Unit {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getDefending() {
-        return defending;
-    }
-
-    public void setDefending(int defending) {
-        this.defending = defending;
-    }
-
-    public int getAttacking() {
-        return attacking;
-    }
-
-    public void setAttacking(int attacking) {
-        this.attacking = attacking;
     }
 
     public Empire getEmpire() {

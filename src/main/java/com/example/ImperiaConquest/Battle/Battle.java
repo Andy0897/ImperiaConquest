@@ -1,36 +1,33 @@
-package com.example.ImperiaConquest.BattleLog;
+package com.example.ImperiaConquest.Battle;
 
 import com.example.ImperiaConquest.Empire.Empire;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-@Table(name = "battle_logs")
-public class BattleLog {
+@Table(name = "battles")
+public class Battle {
 
-    @Column(name = "battle_log_id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @JoinColumn(name = "attacker_id")
     @ManyToOne
-    private  Empire attacker;
+    private Empire attacker;
 
     @JoinColumn(name = "defender_id")
     @ManyToOne
-    private  Empire defender;
+    private Empire defender;
 
     @JoinColumn(name = "winner_id")
     @ManyToOne
     private Empire winner;
 
-
     private LocalDateTime datetime;
 
-    public BattleLog() {
+    public Battle() {
         this.datetime = LocalDateTime.now();
     }
 
@@ -43,14 +40,13 @@ public class BattleLog {
     }
 
 
+    public LocalDateTime getDatetime() {
+        return datetime;
+    }
 
-   public LocalDateTime getDatetime() {
-       return datetime;
-   }
-
-   public void setDatetime(LocalDateTime datetime) {
-       this.datetime = datetime;
-   }
+    public void setDatetime(LocalDateTime datetime) {
+        this.datetime = datetime;
+    }
 
     public Empire getAttacker() {
         return attacker;
@@ -75,7 +71,4 @@ public class BattleLog {
     public void setWinner(Empire winner) {
         this.winner = winner;
     }
-
-
-    //ToDo: Add stolen resources.*/
 }

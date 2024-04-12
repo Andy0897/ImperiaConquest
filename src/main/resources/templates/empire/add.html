@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="partials/head"></head>
 <body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
+<nav th:insert="@{fragments/navbar}"></nav>
 <div class="container">
     <div class="row justify-content-center mt-4">
         <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
@@ -23,6 +24,8 @@
                                                placeholder="Name" th:field="*{name}">
                                         <label for="name" class="form-label">Enter Empire Name</label>
                                     </div>
+                                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                         class="alert alert-danger mt-3" role="alert"></div>
                                 </div>
                             </div>
                         </div>

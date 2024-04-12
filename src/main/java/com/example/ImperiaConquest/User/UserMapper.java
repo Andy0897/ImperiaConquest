@@ -15,8 +15,8 @@ public class UserMapper {
         user.setUsername(userDTO.getUsername());
         user.setEmail(userDTO.getEmail());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        user.setRole("USER");//could be changed
-        user.setEnable(true); //could be changed
+        user.setRole("USER");
+        user.setEnable(true);
         return user;
     }
 }

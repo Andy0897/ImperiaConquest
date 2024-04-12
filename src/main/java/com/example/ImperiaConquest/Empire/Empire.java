@@ -1,7 +1,7 @@
 
 package com.example.ImperiaConquest.Empire;
 
-import com.example.ImperiaConquest.BattleLog.BattleLog;
+import com.example.ImperiaConquest.Battle.Battle;
 import com.example.ImperiaConquest.Building.Building;
 import com.example.ImperiaConquest.Mine.Mine;
 import com.example.ImperiaConquest.User.User;
@@ -16,6 +16,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 import java.util.List;
 
 @Entity
@@ -36,6 +39,9 @@ public class Empire {
         name = "user_id"
     )
     private User user;
+    @NotEmpty(message = "This field can't be empty")
+    @Size(min = 3, message = "Size must be greater than 3")
+    @Size(max = 16, message = "Size must be smaller than 16")
     private String name;
     @OneToMany
     private List<Mine> mines;
@@ -62,13 +68,13 @@ public class Empire {
         cascade = {CascadeType.ALL},
         mappedBy = "winner"
     )
-    private List<BattleLog> wins;
+    private List<Battle> wins;
     @OneToMany(
         fetch = FetchType.LAZY,
         cascade = {CascadeType.ALL},
         mappedBy = "winner"
     )
-    private List<BattleLog> losses;
+    private List<Battle> losses;
 
     public Empire() {
     }
@@ -133,19 +139,19 @@ public class Empire {
         this.mines = mines;
     }
 
-    public List<BattleLog> getWins() {
+    public List<Battle> getWins() {
         return this.wins;
     }
 
-    public void setWins(List<BattleLog> wins) {
+    public void setWins(List<Battle> wins) {
         this.wins = wins;
     }
 
-    public List<BattleLog> getLosses() {
+    public List<Battle> getLosses() {
         return this.losses;
     }
 
-    public void setLosses(List<BattleLog> losses) {
+    public void setLosses(List<Battle> losses) {
         this.losses = losses;
     }
 

@@ -59,7 +59,7 @@ public class BuildingController {
             }
 
             this.buildingService.getBuildingRepository().save(building);
-            this.empireService.reduceResource(
+            this.empireService.reduceResources(
                     empire,
                     buildingCost.get(ResourceTypes.GOLD.name()),
                     buildingCost.get(ResourceTypes.IRON.name()),

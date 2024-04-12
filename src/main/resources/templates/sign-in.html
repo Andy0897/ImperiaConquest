@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="partials/head"></head>
 <body style="background-image: url('/images/background.jpg'); background-attachment: fixed; background-size:100%; width: auto; object: fit-content;">
+<nav th:insert="@{fragments/navbar}"></nav>
 <div class="container">
     <div class="row justify-content-center mt-4">
         <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
@@ -26,14 +27,14 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" value="neshosineznam" name="usernameOrEmail" id="email"
+                                    <input type="text" class="form-control" value="" name="usernameOrEmail" id="email"
                                            placeholder="name@example.com">
                                     <label for="email" class="form-label">Username or Email</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" value="Tami5029" name="password" id="password"
+                                    <input type="password" class="form-control" value="" name="password" id="password"
                                            placeholder="Password">
                                     <label for="password" class="form-label">Password</label>
                                 </div>
