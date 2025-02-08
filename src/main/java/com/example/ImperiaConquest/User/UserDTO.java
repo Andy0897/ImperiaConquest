@@ -1,7 +1,6 @@
 package com.example.ImperiaConquest.User;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public class UserDTO {
     @NotEmpty(message = "This field can't be empty")

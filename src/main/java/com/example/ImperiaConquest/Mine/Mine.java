@@ -22,7 +22,6 @@ public class Mine {
     private LocalDateTime lastMining;
     @ManyToOne
     private Empire empire;
-
     @Column(name = "name")
     private String name;
 
